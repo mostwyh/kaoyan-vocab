@@ -1,0 +1,585 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>考研英语词汇周计划 · 按页词表</title>
+<style>
+:root{
+  --bg:#f4f1ea;
+  --panel:#fffdf8;
+  --panel2:#f8f4ec;
+  --ink:#1e1c19;
+  --ink2:#6b6459;
+  --ink3:#948b7d;
+  --line:#e6ddce;
+  --red:#c8322b;
+  --red2:#e2564e;
+  --gold:#b8873a;
+  --shadow:0 6px 20px rgba(70,50,25,.08);
+  --h:70px;
+  color-scheme: light;
+}
+[data-theme="dark"]{
+  --bg:#15171a;
+  --panel:#1d2024;
+  --panel2:#23272c;
+  --ink:#e9e7e2;
+  --ink2:#a2a8ae;
+  --ink3:#7d848b;
+  --line:#2e333a;
+  --red:#e2564e;
+  --red2:#ff7d73;
+  --gold:#d8a856;
+  --shadow:0 8px 24px rgba(0,0,0,.5);
+  color-scheme: dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font:15px/1.65 "PingFang SC","Microsoft YaHei","Noto Sans SC",system-ui,-apple-system,"Segoe UI",sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+input[type=range]{accent-color:var(--red)}
+
+/* ---------- top bar ---------- */
+.bar{
+  position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+  padding:12px 22px;background:color-mix(in srgb, var(--panel) 92%, transparent);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.brand .mark{width:9px;height:30px;border-radius:5px;background:linear-gradient(180deg,var(--red),var(--red2))}
+.brand h1{margin:0;font-size:16px;letter-spacing:.3px}
+.brand p{margin:1px 0 0;font-size:11.5px;color:var(--ink2)}
+.brand b{color:var(--ink)}
+.search{flex:1;min-width:220px;max-width:460px}
+#q{
+  width:100%;padding:9px 14px;border-radius:999px;border:1px solid var(--line);
+  background:var(--panel2);color:var(--ink);font-size:14px;outline:none;
+}
+#q:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(200,50,43,.12)}
+.tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-left:auto}
+.sw{display:flex;align-items:center;gap:5px;font-size:12.5px;color:var(--ink2);cursor:pointer;white-space:nowrap}
+.sw input{accent-color:var(--red)}
+.btn{
+  padding:6px 11px;border-radius:9px;border:1px solid var(--line);background:var(--panel2);
+  font-size:12.5px;color:var(--ink);white-space:nowrap;text-decoration:none;display:inline-block;
+}
+.btn:hover{border-color:var(--red);color:var(--red)}
+.btn.link{color:var(--ink2)}
+
+/* ---------- play bar ---------- */
+.playbar{
+  position:sticky;top:var(--h);z-index:25;display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  padding:9px 22px;background:var(--panel);border-bottom:1px solid var(--line);
+}
+.pg{display:flex;gap:8px}
+.primary{
+  padding:8px 15px;border-radius:10px;background:var(--red);color:#fff;font-size:13px;font-weight:600;
+  box-shadow:0 2px 8px rgba(200,50,43,.24);transition:.15s;
+}
+.primary:hover{background:var(--red2)}
+.primary.alt{background:#33404f;box-shadow:none}
+.primary.alt:hover{background:#415063}
+.primary.on{outline:3px solid rgba(200,50,43,.22)}
+.opts{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--ink2)}
+.rng{display:flex;align-items:center;gap:6px}
+.rng input{width:82px}
+.rng b{color:var(--ink);font-variant-numeric:tabular-nums;min-width:28px}
+.np{margin-left:auto;font-size:12.5px;color:var(--ink2);max-width:40%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.np b{color:var(--red)}
+
+/* ---------- page jump strip ---------- */
+.jump{
+  display:flex;gap:4px;overflow-x:auto;padding:8px 22px;background:var(--bg);
+  border-bottom:1px solid var(--line);position:sticky;top:calc(var(--h) + 47px);z-index:20;
+  scrollbar-width:thin;
+}
+.jump a{
+  flex:0 0 auto;min-width:26px;text-align:center;padding:2px 6px;border-radius:6px;
+  font-size:11.5px;color:var(--ink2);text-decoration:none;border:1px solid transparent;
+  font-variant-numeric:tabular-nums;
+}
+.jump a:hover{background:var(--panel2);color:var(--red);border-color:var(--line)}
+.jump a.w2{color:var(--gold)}
+.jump a.w3{color:var(--red)}
+
+/* ---------- list ---------- */
+.list{max-width:820px;margin:0 auto;padding:10px 22px 120px}
+.pgblock{margin:18px 0 6px}
+.pghead{
+  display:flex;align-items:baseline;gap:10px;margin:0 0 8px;padding:6px 2px;
+  position:sticky;top:calc(var(--h) + 47px + 40px);z-index:10;
+  background:linear-gradient(180deg, var(--bg) 72%, transparent);
+}
+.pgno{font-size:15px;font-weight:700;letter-spacing:.4px}
+.pgno small{font-weight:400;color:var(--ink2);font-size:12px;margin-left:6px}
+.pgsub{font-size:11.5px;color:var(--ink3)}
+.pgcount{margin-left:auto;font-size:11.5px;color:var(--ink3)}
+
+.rows{display:flex;flex-direction:column;gap:2px;border-left:2px solid var(--line);padding-left:14px}
+.row{
+  display:grid;grid-template-columns:180px minmax(0,1fr) 44px;gap:2px 16px;align-items:start;
+  padding:8px 10px;border-radius:10px;border:1px solid transparent;
+}
+.row:hover{background:var(--panel);border-color:var(--line)}
+.row.speaking{background:rgba(200,50,43,.09);border-color:rgba(200,50,43,.35)}
+.row .cell{display:flex;flex-direction:column;min-width:0}
+.row .w{
+  font-family:Georgia,"Times New Roman",serif;font-size:17px;font-weight:600;color:var(--red);
+  text-align:left;padding:0;line-height:1.35;word-break:break-word;
+}
+.row .w:hover{text-decoration:underline}
+.row .ph{font-family:Georgia,serif;font-size:12px;color:var(--ink3);line-height:1.4}
+.row .line2{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.row .pos{
+  font-size:11.5px;color:var(--red);background:rgba(200,50,43,.09);
+  padding:1px 6px;border-radius:5px;white-space:nowrap;
+}
+.row .cn{font-size:14px;color:var(--ink);line-height:1.6}
+.row .note{margin-top:2px;font-size:12px;color:var(--ink3);border-left:2px solid var(--gold);padding-left:8px}
+.row .star{
+  font-size:15px;color:var(--line);padding:0 2px;line-height:1;transition:.15s;
+}
+.row .star:hover{color:var(--gold)}
+.row .star.on{color:var(--gold)}
+.row .cell.right{align-items:flex-end;gap:3px}
+.row .pgtag{
+  font-size:10.5px;color:var(--ink3);letter-spacing:.3px;font-variant-numeric:tabular-nums;
+  border:1px solid var(--line);border-radius:4px;padding:0 4px;line-height:1.5;
+}
+
+body.hide-cn .row .cn, body.hide-cn .row .note{filter:blur(6px);cursor:pointer;user-select:none;transition:filter .15s}
+body.hide-cn .row.revealed .cn, body.hide-cn .row.revealed .note{filter:none}
+body.no-note .row .note{display:none}
+body.only-star .row:not(.starred){display:none}
+body.only-star .pgblock:not(:has(.row.starred)){display:none}
+
+.empty{padding:60px 0;text-align:center;color:var(--ink2)}
+
+.foot{
+  position:fixed;left:0;right:0;bottom:0;padding:8px 22px;font-size:12px;color:var(--ink3);
+  background:color-mix(in srgb, var(--panel) 92%, transparent);border-top:1px solid var(--line);
+  backdrop-filter:blur(8px);
+}
+
+.toast{
+  position:fixed;left:50%;bottom:52px;transform:translate(-50%,10px);opacity:0;pointer-events:none;
+  background:rgba(30,28,25,.92);color:#fff;padding:8px 14px;border-radius:9px;font-size:13px;
+  transition:.2s;z-index:60;
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media (max-width:820px){
+  .bar{padding:8px 12px;gap:8px}
+  .brand p{display:none}
+  .tools{gap:6px}
+  .btn{padding:4px 8px;font-size:12px}
+  .primary{padding:7px 12px;font-size:12.5px}
+  .search{order:3;flex-basis:100%;max-width:none;min-width:0}
+  .tools{order:2;margin-left:auto}
+  .playbar .opts{flex-wrap:nowrap;overflow-x:auto;padding-bottom:2px;-webkit-overflow-scrolling:touch}
+  .playbar .rng,.playbar .sw{flex:0 0 auto;white-space:nowrap}
+  .playbar .rng input{width:58px}
+  .bar{position:static}
+  .playbar{padding:6px 12px 7px;gap:8px;position:sticky;top:0;z-index:40}
+  .playbar .pg{gap:6px}
+  .playbar .opts{gap:10px;font-size:12px}
+  .playbar .rng input{width:64px}
+  .jump{padding:6px 14px;position:static}
+  .list{padding:8px 14px 100px}
+  .pghead{position:static}
+  .row{grid-template-columns:1fr auto;gap:0 10px}
+  .row .cell:nth-child(1){grid-column:1;grid-row:1}
+  .row .cell.right{grid-column:2;grid-row:1}
+  .row .cell:nth-child(2){grid-column:1/-1;grid-row:2;margin-top:3px}
+  .row .line2{display:block}
+  .row .line2 .pos{display:inline-block;margin-right:5px;vertical-align:1px}
+  .playbar{padding:6px 10px;gap:8px}
+  .playbar .primary{padding:8px 10px}
+  .rng{font-size:11.5px;gap:4px}
+  .rng input[type=range]{width:64px}
+  .jump{padding:5px 10px}
+  .row .w{font-size:16px}
+  .np{display:none}
+  .brand h1{font-size:14px}
+  .foot{font-size:11px;padding:6px 14px}
+}
+
+@media print{
+  .bar,.playbar,.jump,.foot,.toast,.star{display:none!important}
+  .list{padding:0;max-width:none}
+  .row{break-inside:avoid;border:0;padding:2px 0}
+  body{background:#fff;color:#000}
+  .row .w{color:#000}
+  .pghead{position:static;background:none}
+}
+
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="brand">
+    <span class="mark"></span>
+    <div>
+      <h1>考研英语词汇周计划</h1>
+      <p>按书内页码排列 · <b id="total">0</b> 词 · <b id="pages">0</b> 页</p>
+    </div>
+  </div>
+
+  <div class="search">
+    <input id="q" type="search" placeholder="搜单词或中文释义…（/ 聚焦，Esc 清空）" autocomplete="off" spellcheck="false">
+  </div>
+
+  <div class="tools">
+    <label class="sw"><input type="checkbox" id="hideCn"> 隐藏释义</label>
+    <label class="sw"><input type="checkbox" id="onlyStar"> 只看生词</label>
+    <button class="btn" id="orderBtn" title="按页码正序 / 倒序">倒序</button>
+    <button class="btn" id="csvBtn" title="导出全部词条为 CSV">导出 CSV</button>
+    <button class="btn" id="printBtn" title="打印（Ctrl+P）">打印</button>
+    <button class="btn" id="themeBtn" title="夜间模式">◐</button>
+    
+  </div>
+</header>
+
+<div class="playbar">
+  <div class="pg">
+    <button class="primary" id="onceBtn" title="从当前位置播到最后一个词">▶ 播一遍</button>
+    <button class="primary alt" id="loopBtn" title="播到结尾再从头开始（L）">🔁 循环播放</button>
+    <button class="btn" id="stopBtn" title="停止（Esc）">■</button>
+  </div>
+  <div class="opts">
+    <label class="rng">语速 <input type="range" id="rate" min="0.5" max="1.4" step="0.05" value="0.9"><b id="rateVal">0.90</b></label>
+    <label class="rng">间隔 <input type="range" id="gap" min="0" max="2000" step="100" value="600"><b id="gapVal">0.6s</b></label>
+    <label class="sw"><input type="checkbox" id="readCn"> 读中文</label>
+  </div>
+  <div class="np" id="np">就绪</div>
+</div>
+
+<nav class="jump" id="jump" aria-label="按页跳转"></nav>
+
+<main id="list" class="list"></main>
+
+<footer class="foot">
+  <span id="footNote">点单词即可朗读；按页排列，标出每个词在书里的页码。</span>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+window.WORDS={"title":"考研英语词汇周计划","subtitle":"星火英语 · 马德高 主编 · 点读版","rows":[{"p":2,"ph":1,"w":"influence","pho":"ˈɪnfluəns","pos":"vt./n.","cn":"影响，对……起作用；影响力","note":"考 exert enormous influence on... 对……施加重大影响","seq":0,"y":0.5,"x":0.5},{"p":2,"ph":1,"w":"intelligence","pho":"ɪnˈtelɪdʒəns","pos":"n.","cn":"智力，才智，理解力；情报，谍报","note":"artificial intelligence (AI) 人工智能","seq":1,"y":0.4767,"x":0.2741},{"p":2,"ph":1,"w":"medium","pho":"ˈmiːdiəm","pos":"a./n.","cn":"中等的，中号的；媒介物，传播媒介，手段，方法","note":"social media 社交媒体；pl. media","seq":2,"y":0.5889,"x":0.1985},{"p":2,"ph":1,"w":"benefit","pho":"ˈbenɪfɪt","pos":"v./n.","cn":"得益于，有益于；利益，好处；救济金","note":"A benefits B. ⇌ B benefits by/from A.","seq":3,"y":0.8567,"x":0.1644},{"p":3,"ph":2,"w":"intellectual","pho":"ˌɪntəˈlektʃuəl","pos":"a./n.","cn":"智力的，脑力的；有知识的，高智力的；知识分子","note":"记 intel-(=inter-, between)+lect(=choose)+-ual","seq":0,"y":0.0839,"x":0.24},{"p":3,"ph":2,"w":"issue","pho":"ˈɪʃuː, ˈɪsjuː","pos":"vt./n.","cn":"发表，颁布，正式发行；议题，争论的问题；期，号","note":"at issue 问题的焦点；make an issue of sth. 小题大做","seq":1,"y":0.205,"x":0.1704},{"p":3,"ph":2,"w":"sense","pho":"sens","pos":"n./vt.","cn":"意义；感觉；感官；判断力，理解力；感觉到，意识到","note":"common sense 常识；make sense 有意义；派 senseless a.","seq":2,"y":0.4194,"x":0.1578},{"p":3,"ph":2,"w":"challenge","pho":"ˈtʃælɪndʒ","pos":"vt./n.","cn":"向……挑战，质疑；挑战；艰巨任务，难题","note":"pose a challenge 构成挑战","seq":3,"y":0.5,"x":0.5},{"p":3,"ph":2,"w":"create","pho":"kriˈeɪt","pos":"vt.","cn":"引起，产生；创造，创建","note":"派 creation n. 创建，创造；创造物","seq":4,"y":0.7178,"x":0.1333},{"p":3,"ph":2,"w":"pressure","pho":"ˈpreʃə","pos":"n./vt.","cn":"压力；压强；强迫；挤压；对……施加压力","note":"put pressure on... 对……施加压力","seq":5,"y":0.8844,"x":0.123},{"p":4,"ph":3,"w":"stress","pho":"stres","pos":"n./vt.","cn":"强调，重要性；压力，忧虑，紧张；重音；强调，着重","note":"under stress 承受压力","seq":0,"y":0.1015,"x":0.0867},{"p":4,"ph":3,"w":"economic","pho":"ˌiːkəˈnɒmɪk","pos":"a.","cn":"经济（学）的，经济上的；合算的，有利可图的","note":"△勿混 economical 节约的","seq":1,"y":0.5,"x":0.5},{"p":4,"ph":3,"w":"claim","pho":"kleɪm","pos":"n./vt.","cn":"权利，要求权，所有权；声称，主张；索赔；索取","note":"lay claim to... 提出对……的所有权","seq":2,"y":0.303,"x":0.0739},{"p":4,"ph":3,"w":"likely","pho":"ˈlaɪkli","pos":"ad./a.","cn":"很可能；可能的，可能发生的；合适的","note":"","seq":3,"y":0.4341,"x":0.065},{"p":4,"ph":3,"w":"individual","pho":"ˌɪndɪˈvɪdʒuəl","pos":"a./n.","cn":"单独的，个别的；个人的；个体，个人","note":"派 individuality n. 个性，特性","seq":4,"y":0.5896,"x":0.0544},{"p":4,"ph":3,"w":"process","pho":"ˈprəʊses","pos":"n./vt.","cn":"进程，过程；工序，制作法，工艺流程；处理；加工","note":"in the process of (doing) sth. 在（做）某事的过程中","seq":5,"y":0.8415,"x":0.04},{"p":5,"ph":3,"w":"legal","pho":"ˈliːɡl","pos":"a.","cn":"法律的，与法律有关的；合法的，正当的","note":"take legal action 采取法律行动","seq":6,"y":0.2037,"x":0.5194},{"p":5,"ph":3,"w":"patent","pho":"ˈpeɪtnt","pos":"vt./a./n.","cn":"获得……的专利权；专利的，受专利保护的；专利","note":"派 patentable a. 可获得专利权的","seq":7,"y":0.3015,"x":0.52},{"p":5,"ph":3,"w":"major","pho":"ˈmeɪdʒə","pos":"a./n./vi.","cn":"重要的，主要的；主修科目，专业；少校；主修","note":"major in 主修；major 作“专业”用","seq":8,"y":0.4111,"x":0.5233},{"p":5,"ph":3,"w":"tend","pho":"tend","pos":"v./vt.","cn":"易于做某事；有……的趋势；照料，看护","note":"tend to do sth. 往往做某事","seq":9,"y":0.5185,"x":0.5239},{"p":5,"ph":3,"w":"access","pho":"ˈækses","pos":"n./vt.","cn":"进入权，使用权；进入，到达；通道，入口；获取数据","note":"gain access to 进入，见到；派 accessible a.","seq":10,"y":0.6563,"x":0.5261},{"p":5,"ph":3,"w":"according to","pho":"əˈkɔːdɪŋ tə","pos":"prep.","cn":"据……所说，按……所报道；按照，根据","note":"","seq":11,"y":0.9193,"x":0.5306},{"p":6,"ph":4,"w":"humanity","pho":"hjuːˈmænəti","pos":"n.","cn":"人文学科；人类；仁慈","note":"△science 自然科学学科；humanity 总称人类","seq":0,"y":0.2452,"x":0.1339},{"p":6,"ph":4,"w":"species","pho":"ˈspiːʃiːz","pos":"n.","cn":"（物）种，种类","note":"单复数同形 sing. 同 pl.","seq":1,"y":0.2963,"x":0.0822},{"p":6,"ph":4,"w":"intend","pho":"ɪnˈtend","pos":"v.","cn":"打算，想要","note":"intend to do sth. 打算做某事","seq":2,"y":0.4881,"x":0.0628},{"p":6,"ph":4,"w":"asset","pho":"ˈæset","pos":"n.","cn":"优点，有用的人；财产，资产","note":"digital asset 数字资产","seq":3,"y":0.6126,"x":0.0539},{"p":6,"ph":4,"w":"risk","pho":"rɪsk","pos":"n./vt.","cn":"风险，危险；冒险行为；冒……的危险","note":"at risk 处境危险；take a risk 冒险","seq":4,"y":0.7444,"x":0.1938},{"p":7,"ph":4,"w":"function","pho":"ˈfʌŋkʃn","pos":"vi./n.","cn":"具有……的功能，起作用，运转；功能，作用；职务；函数","note":"function as... 起……作用；派 functional a.","seq":5,"y":0.0837,"x":0.5311},{"p":7,"ph":4,"w":"substance","pho":"ˈsʌbstəns","pos":"n.","cn":"主旨，要义；物质；重要性","note":"in substance 大体上","seq":6,"y":0.2067,"x":0.5339},{"p":7,"ph":4,"w":"decade","pho":"ˈdekeɪd","pos":"n.","cn":"十年，十年期间","note":"","seq":7,"y":0.3089,"x":0.5361},{"p":7,"ph":4,"w":"reform","pho":"rɪˈfɔːm","pos":"vt./n.","cn":"改革，改进","note":"派 reformation n. 改革，改善","seq":8,"y":0.4652,"x":0.5378},{"p":7,"ph":4,"w":"define","pho":"dɪˈfaɪn","pos":"vt.","cn":"确定，说明，界定；解释，给……下定义","note":"记 de-(=down)+fine(界限)","seq":9,"y":0.6052,"x":0.54},{"p":7,"ph":4,"w":"involve","pho":"ɪnˈvɒlv","pos":"vt.","cn":"包含，需要；涉及，影响","note":"派 involved a. 与……有关的；复杂难懂的","seq":10,"y":0.7489,"x":0.54},{"p":8,"ph":5,"w":"hover","pho":"ˈhɒvə","pos":"vi.","cn":"翱翔，盘旋；徘徊，走来走去","note":"","seq":0,"y":0.5,"x":0.5},{"p":8,"ph":5,"w":"infer","pho":"ɪnˈfɜː","pos":"vt.","cn":"推定，推断","note":"派 inference n. 结论，推断","seq":1,"y":0.1333,"x":0.1217},{"p":8,"ph":5,"w":"promote","pho":"prəˈməʊt","pos":"vt.","cn":"促进，增进；提升，提拔；促销，推销；提倡，倡议","note":"派 promotion n. 促销；提升","seq":2,"y":0.457,"x":0.125},{"p":8,"ph":5,"w":"community","pho":"kəˈmjuːnəti","pos":"n.","cn":"社区；团体，社团，界","note":"the scientific community 科学界","seq":3,"y":0.5193,"x":0.09},{"p":8,"ph":5,"w":"association","pho":"əˌsəʊsiˈeɪʃn","pos":"n.","cn":"协会，社团；关联，交往；联系","note":"association with sb. 与某人的交往","seq":4,"y":0.6052,"x":0.0817},{"p":8,"ph":5,"w":"criticism","pho":"ˈkrɪtɪsɪzəm","pos":"n.","cn":"批评；（书、电影、音乐等的）评论","note":"criticize v. 批评","seq":5,"y":0.7548,"x":0.0744},{"p":8,"ph":5,"w":"potential","pho":"pəˈtenʃl","pos":"n./a.","cn":"潜力，可能性；潜在的，可能的","note":"","seq":6,"y":0.9037,"x":0.06},{"p":9,"ph":5,"w":"attitude","pho":"ˈætɪtjuːd","pos":"n.","cn":"态度，看法；姿势","note":"one's attitude towards/to... 某人对……的态度","seq":7,"y":0.2052,"x":0.5422},{"p":9,"ph":5,"w":"publish","pho":"ˈpʌblɪʃ","pos":"vt.","cn":"出版；公布，发布；发表","note":"派 publisher n. 出版商","seq":8,"y":0.3896,"x":0.5461},{"p":9,"ph":5,"w":"reveal","pho":"rɪˈviːl","pos":"vt.","cn":"揭示，揭露；展现，显示","note":"记 re-(=off)+veal(=veil) 去掉面纱","seq":9,"y":0.5452,"x":0.5511},{"p":9,"ph":5,"w":"comment","pho":"ˈkɒment","pos":"n./v.","cn":"评论，意见；评论，发表意见","note":"no comment 无可奉告；派 commentator n.","seq":10,"y":0.6793,"x":0.5517},{"p":9,"ph":5,"w":"institution","pho":"ˌɪnstɪˈtjuːʃn","pos":"n.","cn":"机构，团体；制度，惯例","note":"记 stitute(=stand 站)→建立","seq":11,"y":0.8237,"x":0.5539},{"p":10,"ph":6,"w":"response","pho":"rɪˈspɒns","pos":"n.","cn":"回答，答复；反应，响应","note":"in response to... 作为对……的反应","seq":0,"y":0.083,"x":0.1506},{"p":10,"ph":6,"w":"peer","pho":"pɪə","pos":"n.","cn":"（身份或地位）相同的人，同龄人","note":"peer pressure 同侪压力","seq":1,"y":0.3511,"x":0.1378},{"p":10,"ph":6,"w":"track","pho":"træk","pos":"n./vt.","cn":"行踪，足迹；小路；跑道；跟踪，追随","note":"keep/lose track of 了解/不了解；track down 追踪到","seq":2,"y":0.62,"x":0.1172},{"p":10,"ph":6,"w":"genetic","pho":"dʒəˈnetɪk","pos":"a./n.","cn":"基因的，遗传（学）的；遗传学","note":"genetic analysis 基因分析","seq":3,"y":0.8459,"x":0.4152},{"p":10,"ph":6,"w":"opportunity","pho":"ˌɒpəˈtjuːnəti","pos":"n.","cn":"机会，时机","note":"take the opportunity to do sth. 借机做某事","seq":4,"y":0.9563,"x":0.1122},{"p":11,"ph":6,"w":"physical","pho":"ˈfɪzɪkl","pos":"a.","cn":"物质的，有形的；身体的，肉体的；物理学的","note":"physical object 实物","seq":5,"y":0.3363,"x":0.5994},{"p":11,"ph":6,"w":"identify","pho":"aɪˈdentɪfaɪ","pos":"vt.","cn":"认出，识别；确认，发现；表明……的身份","note":"identify with 认同","seq":6,"y":0.3837,"x":0.5639},{"p":11,"ph":6,"w":"innovation","pho":"ˌɪnəˈveɪʃn","pos":"n.","cn":"创新，革新；新方法，新事物","note":"innovate v. 革新；innovative a. 创新的","seq":7,"y":0.5,"x":0.5},{"p":11,"ph":6,"w":"publication","pho":"ˌpʌblɪˈkeɪʃn","pos":"n.","cn":"出版物；公布，发表；出版，发行","note":"勿把 publication 当成 public 的名词","seq":8,"y":0.5,"x":0.5},{"p":12,"ph":7,"w":"mass","pho":"mæs","pos":"n./a.","cn":"众多，大量；群众，民众；质量；团，块；大众的","note":"index of body mass 体重指数","seq":0,"y":0.5,"x":0.5},{"p":12,"ph":7,"w":"variety","pho":"vəˈraɪəti","pos":"n.","cn":"变化，多样化；品种，种类","note":"a variety of 多种多样的","seq":1,"y":0.5,"x":0.5},{"p":12,"ph":7,"w":"majority","pho":"məˈdʒɒrəti","pos":"n.","cn":"（大）多数","note":"the majority of 大多数","seq":2,"y":0.3207,"x":0.145},{"p":12,"ph":7,"w":"threat","pho":"θret","pos":"n.","cn":"威胁，恐吓；凶兆，危险迹象","note":"the threat of strike 罢工的威胁","seq":3,"y":0.4859,"x":0.1294},{"p":12,"ph":7,"w":"congress","pho":"ˈkɒŋɡres","pos":"n.","cn":"（美国等国的）国会，议会；代表大会","note":"the US Congress 美国国会","seq":4,"y":0.6037,"x":0.1183},{"p":12,"ph":7,"w":"conclude","pho":"kənˈkluːd","pos":"vt./v.","cn":"断定，下结论；缔结，议定；结束，终止","note":"conclude with 以……结束","seq":5,"y":0.5,"x":0.5},{"p":13,"ph":7,"w":"available","pho":"əˈveɪləbl","pos":"a.","cn":"可获得的；（人）有空的","note":"be available to sb. 可供某人使用","seq":6,"y":0.1304,"x":0.6758},{"p":13,"ph":7,"w":"conduct","pho":"kənˈdʌkt/ˈkɒndʌkt","pos":"vt./n.","cn":"引导；实施，执行；指挥；传导；行为，举止","note":"conduct a survey 进行调查","seq":7,"y":0.2407,"x":0.5656},{"p":13,"ph":7,"w":"consequence","pho":"ˈkɒnsɪkwəns","pos":"n.","cn":"结果，后果","note":"in consequence (of) 因此，结果；of little consequence 不重要","seq":8,"y":0.4615,"x":0.5656},{"p":13,"ph":7,"w":"layman","pho":"ˈleɪmən","pos":"n.","cn":"门外汉，外行","note":"a layman in painting 绘画方面的外行","seq":9,"y":0.5889,"x":0.5639},{"p":13,"ph":7,"w":"security","pho":"sɪˈkjʊərəti","pos":"n.","cn":"安全工作，保安措施；保障，保护；保安部门；证券","note":"security check 安全检查","seq":10,"y":0.6993,"x":0.5628},{"p":13,"ph":7,"w":"immigrant","pho":"ˈɪmɪɡrənt","pos":"n.","cn":"（外来）移民，侨民","note":"记 im-(=in)+migrant(移民)","seq":11,"y":0.9296,"x":0.56},{"p":14,"ph":8,"w":"apply","pho":"əˈplaɪ","pos":"vt./vi.","cn":"应用，运用；申请，请求；（对……）适用","note":"apply to 适用于；apply for 申请；apply...to 把……应用于","seq":0,"y":0.1644,"x":0.1611},{"p":14,"ph":8,"w":"deny","pho":"dɪˈnaɪ","pos":"vt.","cn":"否认，否定；拒绝","note":"there's no denying (that) 无可否认","seq":1,"y":0.3489,"x":0.1461},{"p":14,"ph":8,"w":"observe","pho":"əbˈzɜːv","pos":"vt.","cn":"注意到，看到，观察；评说，评论；遵守，奉行","note":"observe 原义“侍候”，引申出观察、评说、遵守","seq":2,"y":0.4807,"x":0.1317},{"p":14,"ph":8,"w":"amount","pho":"əˈmaʊnt","pos":"n./vi.","cn":"数量，数额；合计，共计；等于，相当于","note":"amount to 合计；相当于","seq":3,"y":0.677,"x":0.1183},{"p":14,"ph":8,"w":"celebrity","pho":"sɪˈlebrəti","pos":"n.","cn":"名人，名流；名誉，名声","note":"celebrate v. 庆祝；celebrated a. 著名的","seq":4,"y":0.7911,"x":0.1161},{"p":15,"ph":8,"w":"ignore","pho":"ɪɡˈnɔː","pos":"vt.","cn":"不顾，不理，忽视；对知道的事置之不理","note":"辨析 ignore 故意不理 / neglect 疏于重视 / overlook 因匆忙而忽视","seq":5,"y":0.1341,"x":0.5544},{"p":15,"ph":8,"w":"despite","pho":"dɪˈspaɪt","pos":"prep.","cn":"尽管","note":"despite = in spite of","seq":6,"y":0.4756,"x":0.5533},{"p":15,"ph":8,"w":"executive","pho":"ɪɡˈzekjətɪv","pos":"a./n.","cn":"行政的，管理的；主管，经理；行政部门","note":"Chief Executive Officer (CEO) 首席执行官","seq":7,"y":0.5,"x":0.5},{"p":15,"ph":8,"w":"investment","pho":"ɪnˈvestmənt","pos":"n.","cn":"投资（额）；（时间、精力、情感等的）投入","note":"invest v. 投资","seq":8,"y":0.7133,"x":0.5517},{"p":15,"ph":8,"w":"moral","pho":"ˈmɒrəl","pos":"a./n.","cn":"道德（上）的；道义上的；寓意；道德准则","note":"the moral of the story 故事的寓意","seq":9,"y":0.8859,"x":0.55},{"p":16,"ph":9,"w":"status","pho":"ˈsteɪtəs","pos":"n.","cn":"情形，状况；地位，身份","note":"","seq":0,"y":0.5,"x":0.5},{"p":16,"ph":9,"w":"secure","pho":"sɪˈkjʊə","pos":"a./vt.","cn":"稳固的，可靠的；安全的；得到，获得；使安全","note":"","seq":1,"y":0.5,"x":0.5},{"p":16,"ph":9,"w":"reflect","pho":"rɪˈflekt","pos":"v.","cn":"反映，显示；仔细思考；反射；映出","note":"reflect on 仔细思考","seq":2,"y":0.5,"x":0.5},{"p":16,"ph":9,"w":"essential","pho":"ɪˈsenʃl","pos":"a./n.","cn":"本质的，最基本的；极其重要的；要点；必需品","note":"be essential for/to 对…至关重要","seq":3,"y":0.6363,"x":0.1378},{"p":16,"ph":9,"w":"authority","pho":"ɔːˈθɒrəti","pos":"n.","cn":"权力，当权；权威人士，专家；官方，当局；授权","note":"派生 authorize vt. 授权，批准","seq":4,"y":0.8741,"x":0.1644},{"p":17,"ph":9,"w":"contribute","pho":"kənˈtrɪbjuːt","pos":"vi./v.","cn":"促成，造成；贡献，捐助","note":"contribute to 促成；有助于","seq":5,"y":0.1548,"x":0.5622},{"p":17,"ph":9,"w":"capacity","pho":"kəˈpæsəti","pos":"n.","cn":"能力，才能；容量，容积","note":"辨析 capacity 指接受、理解的能力；ability 指实际办事的才能","seq":6,"y":0.3163,"x":0.5656},{"p":17,"ph":9,"w":"establish","pho":"ɪˈstæblɪʃ","pos":"vt.","cn":"建立，设立；使被接受；确定，证实","note":"","seq":7,"y":0.5319,"x":0.5656},{"p":17,"ph":9,"w":"moreover","pho":"mɔːrˈəʊvə","pos":"ad.","cn":"再者，加之，而且","note":"","seq":8,"y":0.6896,"x":0.5639},{"p":17,"ph":9,"w":"rate","pho":"reɪt","pos":"n./vt.","cn":"比率，率；速度；价格，费用；等级；评价","note":"at any rate 无论如何","seq":9,"y":0.7748,"x":0.5633},{"p":17,"ph":9,"w":"unique","pho":"juːˈniːk","pos":"a.","cn":"唯一的，独一无二的","note":"","seq":10,"y":0.8948,"x":0.5639},{"p":18,"ph":10,"w":"commercial","pho":"kəˈmɜːʃl","pos":"a./n.","cn":"商业的；商业广告","note":"","seq":0,"y":0.5,"x":0.5},{"p":18,"ph":10,"w":"expose","pho":"ɪkˈspəʊz","pos":"vt.","cn":"使暴露于险境；使接触，使体验；揭露；使曝光","note":"expose...to... 把…暴露在…之下","seq":1,"y":0.5,"x":0.5},{"p":18,"ph":10,"w":"locate","pho":"ləʊˈkeɪt","pos":"vt.","cn":"找出…的准确位置；位于；把…设置在","note":"be located in 坐落于，位于","seq":2,"y":0.4711,"x":0.165},{"p":18,"ph":10,"w":"automation","pho":"ˌɔːtəˈmeɪʃn","pos":"n.","cn":"自动化","note":"","seq":3,"y":0.6889,"x":0.1594},{"p":18,"ph":10,"w":"commission","pho":"kəˈmɪʃn","pos":"n.","cn":"委员会；佣金，回扣","note":"","seq":4,"y":0.7948,"x":0.1528},{"p":19,"ph":10,"w":"grant","pho":"ɡrɑːnt","pos":"vt./n.","cn":"承认；给予，准予；补助金，拨款","note":"take...for granted 认为…理所当然","seq":5,"y":0.1726,"x":0.5733},{"p":19,"ph":10,"w":"rely","pho":"rɪˈlaɪ","pos":"vi.","cn":"信赖，信任；依靠，依赖","note":"rely on/upon 依靠，依赖","seq":6,"y":0.2844,"x":0.5744},{"p":19,"ph":10,"w":"conscious","pho":"ˈkɒnʃəs","pos":"a.","cn":"意识到的，注意到的；有知觉的；关注的","note":"be conscious of 意识到","seq":7,"y":0.3978,"x":0.5728},{"p":19,"ph":10,"w":"decline","pho":"dɪˈklaɪn","pos":"v./n.","cn":"拒绝，谢绝；减少，降低，衰落","note":"fall into decline 衰落","seq":8,"y":0.623,"x":0.5744},{"p":19,"ph":10,"w":"enhance","pho":"ɪnˈhɑːns","pos":"vt.","cn":"提高，改进，增强","note":"","seq":9,"y":0.8748,"x":0.5756},{"p":20,"ph":11,"w":"impact","pho":"ˈɪmpækt","pos":"n./v.","cn":"影响，效果，作用；冲击力，撞击力","note":"动词读 ɪmˈpækt；have an impact on 对…有影响","seq":0,"y":0.1296,"x":0.1844},{"p":20,"ph":11,"w":"predict","pho":"prɪˈdɪkt","pos":"vt.","cn":"预言，预测","note":"派生 prediction n. 预言，预测","seq":1,"y":0.2489,"x":0.1722},{"p":20,"ph":11,"w":"inevitable","pho":"ɪˈnevɪtəbl","pos":"a.","cn":"不可避免的","note":"","seq":2,"y":0.4022,"x":0.16},{"p":20,"ph":11,"w":"original","pho":"əˈrɪdʒənl","pos":"a./n.","cn":"最初的，最早的；新颖的，独创的；原作，原件","note":"派生 originality n. 独创性","seq":3,"y":0.5948,"x":0.2456},{"p":20,"ph":11,"w":"profit","pho":"ˈprɒfɪt","pos":"n./v.","cn":"利润；益处；有益于；获利","note":"profit margin 利润率","seq":4,"y":0.7193,"x":0.1439},{"p":20,"ph":11,"w":"reputation","pho":"ˌrepjuˈteɪʃn","pos":"n.","cn":"名誉，声望","note":"have a reputation for 以…闻名","seq":5,"y":0.8289,"x":0.1428},{"p":20,"ph":11,"w":"scale","pho":"skeɪl","pos":"n./vt.","cn":"规模；等级，级别；刻度；天平；比例；攀登","note":"on a large scale 大规模地","seq":6,"y":0.5,"x":0.5},{"p":21,"ph":11,"w":"indicate","pho":"ˈɪndɪkeɪt","pos":"vt.","cn":"暗示，示意；表明，显示；标志着；指示","note":"派生 indicator n. 指示者，指示物","seq":7,"y":0.2985,"x":0.5539},{"p":21,"ph":11,"w":"significant","pho":"sɪɡˈnɪfɪkənt","pos":"a.","cn":"有意义的，意味深长的；重要的；相当数量的","note":"","seq":8,"y":0.4163,"x":0.555},{"p":21,"ph":11,"w":"insurance","pho":"ɪnˈʃʊərəns","pos":"n.","cn":"保险；保险业","note":"","seq":9,"y":0.5948,"x":0.595},{"p":21,"ph":11,"w":"source","pho":"sɔːs","pos":"n.","cn":"来源，出处；根源，起源；发源地；消息提供者","note":"","seq":10,"y":0.6489,"x":0.5561},{"p":21,"ph":11,"w":"parallel","pho":"ˈpærəlel","pos":"a./n.","cn":"平行的；相似的；相似特征；纬线","note":"be parallel to/with 与…平行","seq":11,"y":0.5,"x":0.5},{"p":21,"ph":11,"w":"analysis","pho":"əˈnæləsɪs","pos":"n.","cn":"分析","note":"in the final analysis 总之，归根结底","seq":12,"y":0.8963,"x":0.5539},{"p":22,"ph":12,"w":"convey","pho":"kənˈveɪ","pos":"vt.","cn":"表达，传播；输送，转运，运送","note":"派生 conveyance n. 表达；运输","seq":0,"y":0.5,"x":0.5},{"p":22,"ph":12,"w":"ancient","pho":"ˈeɪnʃənt","pos":"a.","cn":"古代的；古老的","note":"","seq":1,"y":0.3733,"x":0.1744},{"p":22,"ph":12,"w":"bias","pho":"ˈbaɪəs","pos":"n./vt.","cn":"偏见，偏心；偏爱；使有偏见","note":"","seq":2,"y":0.4733,"x":0.165},{"p":22,"ph":12,"w":"conservative","pho":"kənˈsɜːvətɪv","pos":"a./n.","cn":"保守的，守旧的；保守者；保守党党员","note":"","seq":3,"y":0.6511,"x":0.1572},{"p":22,"ph":12,"w":"reward","pho":"rɪˈwɔːd","pos":"n./vt.","cn":"报酬，赏金，回报；奖赏，酬谢","note":"派生 rewarding a. 有益的，值得做的","seq":4,"y":0.7807,"x":0.1528},{"p":23,"ph":12,"w":"contrive","pho":"kənˈtraɪv","pos":"vt.","cn":"设法做到；谋划，策划；想出，发明","note":"","seq":5,"y":0.1244,"x":0.5467},{"p":23,"ph":12,"w":"illustrate","pho":"ˈɪləstreɪt","pos":"vt.","cn":"举例说明，阐明；给…加插图","note":"派生 illustration n. 实例；图解","seq":6,"y":0.2348,"x":0.5489},{"p":23,"ph":12,"w":"range","pho":"reɪndʒ","pos":"n./vi./vt.","cn":"范围，界限；一系列；山脉；包括；排列","note":"range from...to... 从…到…不等","seq":7,"y":0.4926,"x":0.5522},{"p":23,"ph":12,"w":"current","pho":"ˈkʌrənt","pos":"a./n.","cn":"当前的，现行的；流；潮流","note":"","seq":8,"y":0.6193,"x":0.5533},{"p":23,"ph":12,"w":"possibility","pho":"ˌpɒsəˈbɪləti","pos":"n.","cn":"可能，可能性；可选择的方法","note":"explore the possibility 探索可能性","seq":9,"y":0.7267,"x":0.5528},{"p":23,"ph":12,"w":"display","pho":"dɪˈspleɪ","pos":"vt./n.","cn":"陈列，展览；显示，显露；表演","note":"on display 在展览中","seq":10,"y":0.8385,"x":0.5539},{"p":24,"ph":13,"w":"elsewhere","pho":"ˌelsˈweə","pos":"ad.","cn":"在别处，到别处","note":"","seq":0,"y":0.0793,"x":0.1794},{"p":24,"ph":13,"w":"fundamental","pho":"ˌfʌndəˈmentl","pos":"a./n.","cn":"必不可少的；基本的，根本的；基本原则","note":"fundamental cause 根本原因","seq":1,"y":0.5,"x":0.5},{"p":24,"ph":13,"w":"interior","pho":"ɪnˈtɪəriə","pos":"n./a.","cn":"内部；内地；内部的，里面的","note":"","seq":2,"y":0.5,"x":0.5},{"p":24,"ph":13,"w":"negative","pho":"ˈneɡətɪv","pos":"a./n.","cn":"负面的，消极的；否定的；负极的；阴性的；底片","note":"negative emotion 消极情绪","seq":3,"y":0.5711,"x":0.1978},{"p":24,"ph":13,"w":"preclude","pho":"prɪˈkluːd","pos":"vt.","cn":"阻止，妨碍","note":"preclude sb. from doing 阻止某人做某事","seq":4,"y":0.6311,"x":0.165},{"p":24,"ph":13,"w":"urge","pho":"ɜːdʒ","pos":"vt./n.","cn":"敦促，力劝；驱策，推进；强烈欲望","note":"urge sb. to do sth. 敦促某人做某事","seq":5,"y":0.7956,"x":0.1561},{"p":25,"ph":13,"w":"privacy","pho":"ˈprɪvəsi","pos":"n.","cn":"隐私；独处","note":"也读 ˈpraɪvəsi；in privacy 秘密地","seq":6,"y":0.1304,"x":0.5533},{"p":25,"ph":13,"w":"pursuit","pho":"pəˈsjuːt","pos":"n.","cn":"追求，寻找；追赶，追踪；嗜好，爱好","note":"in pursuit of 追求，寻找","seq":7,"y":0.2681,"x":0.5583},{"p":25,"ph":13,"w":"generate","pho":"ˈdʒenəreɪt","pos":"vt.","cn":"产生，引起，创造","note":"派生 generator n. 生成器；发电机","seq":8,"y":0.3867,"x":0.5594},{"p":25,"ph":13,"w":"quit","pho":"kwɪt","pos":"v.","cn":"停止，放弃；迁出，搬离；离职","note":"","seq":9,"y":0.6607,"x":0.565},{"p":25,"ph":13,"w":"refund","pho":"rɪˈfʌnd","pos":"vt./n.","cn":"退还（钱款）；退款","note":"名词读 ˈriːfʌnd","seq":10,"y":0.5,"x":0.5},{"p":26,"ph":14,"w":"refute","pho":"rɪˈfjuːt","pos":"vt.","cn":"驳斥，反驳","note":"","seq":0,"y":0.0659,"x":0.1261},{"p":26,"ph":14,"w":"detail","pho":"ˈdiːteɪl","pos":"n./vt.","cn":"细节，详情；详述","note":"in detail 详细地","seq":1,"y":0.1793,"x":0.1228},{"p":26,"ph":14,"w":"revenue","pho":"ˈrevənjuː","pos":"n.","cn":"收益，收入；税收","note":"","seq":2,"y":0.2933,"x":0.1167},{"p":26,"ph":14,"w":"series","pho":"ˈsɪəriːz","pos":"n.","cn":"一系列，连续；系列","note":"a series of 一系列，一连串","seq":3,"y":0.5593,"x":0.1089},{"p":26,"ph":14,"w":"emerge","pho":"ɪˈmɜːdʒ","pos":"vi.","cn":"出现，浮现，显现；暴露","note":"派生 emerging a. 新兴的","seq":4,"y":0.6511,"x":0.1072},{"p":27,"ph":14,"w":"appeal","pho":"əˈpiːl","pos":"n./vi./v.","cn":"吸引力；上诉，申诉；呼吁，恳求；有吸引力","note":"appeal to 对…有吸引力","seq":5,"y":0.0474,"x":0.8666},{"p":27,"ph":14,"w":"responsible","pho":"rɪˈspɒnsəbl","pos":"a.","cn":"负有责任的；引起…的；有责任心的，可靠的","note":"be responsible for 对…负责","seq":6,"y":0.1674,"x":0.5367},{"p":27,"ph":14,"w":"abuse","pho":"əˈbjuːz","pos":"vt./n.","cn":"虐待；滥用；辱骂","note":"名词读 əˈbjuːs；abuse of power 滥用权力","seq":7,"y":0.2963,"x":0.5389},{"p":27,"ph":14,"w":"represent","pho":"ˌreprɪˈzent","pos":"vt.","cn":"代表；象征；表现，展示","note":"","seq":8,"y":0.457,"x":0.5389},{"p":27,"ph":14,"w":"adjust","pho":"əˈdʒʌst","pos":"vt./v.","cn":"调节，调整；适应，（使）习惯","note":"adjust (oneself) to 适应","seq":9,"y":0.6548,"x":0.5394},{"p":27,"ph":14,"w":"application","pho":"ˌæplɪˈkeɪʃn","pos":"n.","cn":"应用，实施；请求，申请（表、书）","note":"make application for 申请","seq":10,"y":0.8874,"x":0.5378},{"p":28,"ph":15,"w":"crucial","pho":"ˈkruːʃl","pos":"a.","cn":"至关重要的","note":"","seq":0,"y":0.1185,"x":0.1561},{"p":28,"ph":15,"w":"aspect","pho":"ˈæspekt","pos":"n.","cn":"方面；面貌，外表；朝向，方位","note":"","seq":1,"y":0.5,"x":0.5},{"p":28,"ph":15,"w":"background","pho":"ˈbækɡraʊnd","pos":"n.","cn":"出身，个人背景；背景情况","note":"in the background 在幕后","seq":2,"y":0.5,"x":0.5},{"p":28,"ph":15,"w":"boost","pho":"buːst","pos":"vt./n.","cn":"推动，促进；向上托起；助推；激励，鼓舞","note":"boost productivity 提高生产力","seq":3,"y":0.6681,"x":0.0989},{"p":28,"ph":15,"w":"category","pho":"ˈkætəɡəri","pos":"n.","cn":"类别，种类，范畴","note":"fall into this category 属于这一类","seq":4,"y":0.7919,"x":0.09},{"p":28,"ph":15,"w":"cite","pho":"saɪt","pos":"vt.","cn":"引用，引证；传唤，传讯；表彰，嘉奖","note":"","seq":5,"y":0.5,"x":0.5},{"p":29,"ph":15,"w":"demonstrate","pho":"ˈdemənstreɪt","pos":"vt./vi.","cn":"说明，论证，证实；示范，演示；示威，游行","note":"派生 demonstration n. 证明；示范；示威","seq":6,"y":0.2274,"x":0.5111},{"p":29,"ph":15,"w":"classical","pho":"ˈklæsɪkl","pos":"a.","cn":"古典的，经典的","note":"classical painting styles 古典绘画风格","seq":7,"y":0.3763,"x":0.5106},{"p":29,"ph":15,"w":"occur","pho":"əˈkɜː","pos":"vi.","cn":"发生；出现","note":"It occurs to sb. that... 某人想起…","seq":8,"y":0.4526,"x":0.5106},{"p":29,"ph":15,"w":"conservation","pho":"ˌkɒnsəˈveɪʃn","pos":"n.","cn":"保存，保护，节约；（动植物）保护","note":"land conservation 土地保护","seq":9,"y":0.5,"x":0.5},{"p":29,"ph":15,"w":"suppose","pho":"səˈpəʊz","pos":"vt.","cn":"料想，猜想；假定，预期","note":"be supposed to do 应该做某事","seq":10,"y":0.7244,"x":0.5078},{"p":29,"ph":15,"w":"crisis","pho":"ˈkraɪsɪs","pos":"n.","cn":"危急关头，关键时刻，危机","note":"复数 crises；in crisis 在危机中","seq":11,"y":0.8504,"x":0.5067},{"p":30,"ph":16,"w":"ensure","pho":"ɪnˈʃʊə","pos":"vt.","cn":"保证，确保","note":"","seq":0,"y":0.1207,"x":0.1867},{"p":30,"ph":16,"w":"influential","pho":"ˌɪnfluˈenʃl","pos":"a.","cn":"有影响力的","note":"","seq":1,"y":0.2837,"x":0.17},{"p":30,"ph":16,"w":"exchange","pho":"ɪksˈtʃeɪndʒ","pos":"vt./n.","cn":"交换；调换，更换；交谈，交流；兑换","note":"exchange...for... 以…换取…","seq":2,"y":0.3904,"x":0.1572},{"p":30,"ph":16,"w":"specific","pho":"spəˈsɪfɪk","pos":"a.","cn":"具体的，特定的；详细的，明确的","note":"辨析 special 特殊的；specific 具体的","seq":3,"y":0.5296,"x":0.1417},{"p":30,"ph":16,"w":"extend","pho":"ɪkˈstend","pos":"v.","cn":"延伸，延长；扩大，扩展；提供，给予","note":"派生 extended a. 延长了的，扩展了的","seq":4,"y":0.76,"x":0.12},{"p":31,"ph":16,"w":"hug","pho":"hʌɡ","pos":"vt./n.","cn":"拥抱，搂抱；靠近…走","note":"hug yourself with joy 沾沾自喜","seq":5,"y":0.1896,"x":0.5478},{"p":31,"ph":16,"w":"image","pho":"ˈɪmɪdʒ","pos":"n.","cn":"图像，影像；声誉，形象；印象","note":"","seq":6,"y":0.2519,"x":0.5467},{"p":31,"ph":16,"w":"justice","pho":"ˈdʒʌstɪs","pos":"n.","cn":"公平，公正；法官；司法制度，审判","note":"do justice to 公平对待","seq":7,"y":0.4304,"x":0.545},{"p":31,"ph":16,"w":"maintain","pho":"meɪnˈteɪn","pos":"vt.","cn":"维持，保持；坚持，主张，支持；维修，保养","note":"maintain lean muscle mass 保持肌肉量","seq":8,"y":0.5311,"x":0.5422},{"p":31,"ph":16,"w":"origin","pho":"ˈɒrɪdʒɪn","pos":"n.","cn":"身世，出身；起源，起因","note":"","seq":9,"y":0.6385,"x":0.5417},{"p":31,"ph":16,"w":"phenomenon","pho":"fɪˈnɒmɪnən","pos":"n.","cn":"现象","note":"复数 phenomena","seq":10,"y":0.78,"x":0.54},{"p":32,"ph":17,"w":"interim","pho":"ˈɪntərɪm","pos":"a.","cn":"临时的，暂时的","note":"考 in the interim 在此期间","seq":0,"y":0.023,"x":0.1428},{"p":32,"ph":17,"w":"prospect","pho":"ˈprɒspekt","pos":"n.","cn":"前景，展望；前途，前程；可能性；景色","note":"复数 prospects 前途","seq":1,"y":0.5,"x":0.5},{"p":32,"ph":17,"w":"regulation","pho":"ˌreɡjuˈleɪʃn","pos":"n.","cn":"规章，规则，法令；管理，控制","note":"","seq":2,"y":0.4956,"x":0.0989},{"p":32,"ph":17,"w":"vote","pho":"vəʊt","pos":"v./n.","cn":"投票，表决；选票（数）","note":"vote for 投票赞成 ↔ vote against 投票反对","seq":3,"y":0.6252,"x":0.0928},{"p":32,"ph":17,"w":"requirement","pho":"rɪˈkwaɪəmənt","pos":"n.","cn":"要求，条件；需要（的东西）","note":"","seq":4,"y":0.5,"x":0.5},{"p":33,"ph":17,"w":"suicide","pho":"ˈsjuːɪsaɪd","pos":"n.","cn":"自杀；自取灭亡的行为","note":"commit suicide 自杀","seq":5,"y":0.0993,"x":0.5239},{"p":33,"ph":17,"w":"ancestor","pho":"ˈænsestə","pos":"n.","cn":"祖宗，祖先","note":"anc(e)- 古，先前","seq":6,"y":0.237,"x":0.5233},{"p":33,"ph":17,"w":"survey","pho":"səˈveɪ / ˈsɜːveɪ","pos":"vt./n.","cn":"全面审视，调查；测量，勘测","note":"动词重音在后，名词重音在前","seq":7,"y":0.3141,"x":0.5233},{"p":33,"ph":17,"w":"transfer","pho":"trænsˈfɜː / ˈtrænsfɜː","pos":"v./n.","cn":"转移，调动；转业，转学；转让；换乘，转乘","note":"trans-(=across)+fer(=carry)","seq":8,"y":0.4933,"x":0.5228},{"p":33,"ph":17,"w":"embryo","pho":"ˈembriəʊ","pos":"n.","cn":"萌芽；胚胎","note":"pl. embryos；in embryo 在萌芽时期","seq":9,"y":0.7504,"x":0.5217},{"p":33,"ph":17,"w":"convince","pho":"kənˈvɪns","pos":"vt.","cn":"使确信，使信服","note":"convince sb. of/that... 使某人相信","seq":10,"y":0.8815,"x":0.5206},{"p":34,"ph":18,"w":"blame","pho":"bleɪm","pos":"vt./n.","cn":"责怪，归咎于；（过错、事故的）责任，过错","note":"blame sb. for sth. 因某事而责备某人","seq":0,"y":0.0852,"x":0.0933},{"p":34,"ph":18,"w":"candidate","pho":"ˈkændɪdət","pos":"n.","cn":"候选人，申请者；应试者，考生","note":"源自拉丁语 candidatus 穿白袍者","seq":1,"y":0.5,"x":0.5},{"p":34,"ph":18,"w":"instance","pho":"ˈɪntəns","pos":"n.","cn":"例子，例证，事例","note":"for instance 例如","seq":2,"y":0.5,"x":0.5},{"p":34,"ph":18,"w":"suffer","pho":"ˈsʌfə","pos":"v.","cn":"感到疼痛，遭受（痛苦）；吃苦头；变差，变坏","note":"suffer from 受痛苦，患病","seq":3,"y":0.5,"x":0.5},{"p":34,"ph":18,"w":"capture","pho":"ˈkæptʃə","pos":"vt./n.","cn":"记录，描述；逮捕，俘虏；夺得，攻占；吸引住","note":"capt(=take 抓住)+-ure","seq":4,"y":0.5,"x":0.5},{"p":34,"ph":18,"w":"arise","pho":"əˈraɪz","pos":"vi.","cn":"（由……）引起，产生；（问题或困境）出现，发生","note":"arise from 由……引起","seq":5,"y":0.1037,"x":0.495},{"p":34,"ph":18,"w":"circumstance","pho":"ˈsɜːkəmstəns","pos":"n.","cn":"境况，境遇，经济状况；条件，环境","note":"under no circumstances 绝不","seq":6,"y":0.2415,"x":0.4972},{"p":34,"ph":18,"w":"neglect","pho":"nɪˈɡlekt","pos":"vt./n.","cn":"忽视，忽略；疏忽，疏漏","note":"neg(否定)+lect(=collect 选)","seq":7,"y":0.3919,"x":0.4972},{"p":34,"ph":18,"w":"concept","pho":"ˈkɒnsept","pos":"n.","cn":"概念，观念","note":"an intellectual concept 一个知识概念","seq":8,"y":0.6,"x":0.4972},{"p":34,"ph":18,"w":"purchase","pho":"ˈpɜːtʃəs","pos":"vt./n.","cn":"买，购买；购买（的物品）","note":"pur-(=forth)+chase(追赶)","seq":9,"y":0.6904,"x":0.4967},{"p":34,"ph":18,"w":"element","pho":"ˈelɪmənt","pos":"n.","cn":"基本部分，要素；[化学]元素","note":"","seq":10,"y":0.8363,"x":0.4967},{"p":36,"ph":19,"w":"respond","pho":"rɪˈspɒnd","pos":"vi.","cn":"回答，答复；回应，做出反应","note":"respond to 对……做出反应","seq":0,"y":0.5,"x":0.5},{"p":36,"ph":19,"w":"critical","pho":"ˈkrɪtɪkl","pos":"a.","cn":"批评的，批判的；关键性的；严重的，危急的","note":"be critical of 对……挑剔","seq":1,"y":0.5,"x":0.5},{"p":36,"ph":19,"w":"dynamic","pho":"daɪˈnæmɪk","pos":"n./a.","cn":"相互作用的方式；力度变化；动力学；精力充沛的","note":"派生 dynamically ad. 精力充沛地","seq":2,"y":0.5,"x":0.5},{"p":36,"ph":19,"w":"effective","pho":"ɪˈfektɪv","pos":"a.","cn":"有效的，产生预期效果的；（法律等）生效的","note":"","seq":3,"y":0.5,"x":0.5},{"p":36,"ph":19,"w":"competition","pho":"ˌkɒmpəˈtɪʃn","pos":"n.","cn":"竞争；比赛，竞赛","note":"be in competition with 与……竞争","seq":4,"y":0.0881,"x":0.4917},{"p":36,"ph":19,"w":"ally","pho":"ˈælaɪ / əˈlaɪ","pos":"n./v.","cn":"同盟国；盟友，支持者；辅助物；与……结盟","note":"名词重音在前，动词在后","seq":5,"y":0.1696,"x":0.4944},{"p":36,"ph":19,"w":"exclude","pho":"ɪkˈskluːd","pos":"vt.","cn":"把……排除在外，排斥，拒绝","note":"exclude sb. from doing sth. 不准某人做某事","seq":6,"y":0.3422,"x":0.4922},{"p":36,"ph":19,"w":"justify","pho":"ˈdʒʌstɪfaɪ","pos":"vt.","cn":"证明……正当，认为……有理","note":"justify doing sth. 证明做某事正当","seq":7,"y":0.717,"x":0.4933},{"p":36,"ph":19,"w":"expand","pho":"ɪkˈspænd","pos":"v.","cn":"扩展（业务）；（使）扩大，增加","note":"expand on/upon 详述","seq":8,"y":0.9052,"x":0.4911},{"p":38,"ph":20,"w":"propose","pho":"prəˈpəʊz","pos":"vt./vi.","cn":"提出；提议，建议；提名，推荐；求婚","note":"pro-(=forward)+pose(放)","seq":0,"y":0.5,"x":0.5},{"p":38,"ph":20,"w":"explore","pho":"ɪkˈsplɔː","pos":"v.","cn":"探测，勘探；探索，探究","note":"派生 exploration n. 探索，勘探","seq":1,"y":0.2356,"x":0.1211},{"p":38,"ph":20,"w":"former","pho":"ˈfɔːmə","pos":"a./n.","cn":"以前的，从前的；前者","note":"the former...the latter... 前者……后者……","seq":2,"y":0.4741,"x":0.1128},{"p":38,"ph":20,"w":"hijack","pho":"ˈhaɪdʒæk","pos":"vt.","cn":"劫持（交通工具，尤指飞机）；操纵（会议等）","note":"亦作 highjack，源自劫机时喊的 Hi, Jack","seq":3,"y":0.6178,"x":0.1072},{"p":39,"ph":20,"w":"sensitive","pho":"ˈsensətɪv","pos":"a.","cn":"敏感的；灵敏的；过敏的","note":"be sensitive to sth. 对……敏感","seq":4,"y":0.1585,"x":0.7328},{"p":39,"ph":20,"w":"illegal","pho":"ɪˈliːɡl","pos":"a.","cn":"非法的，不合法的","note":"il-(=not)+legal(合法的)","seq":5,"y":0.257,"x":0.5094},{"p":39,"ph":20,"w":"integrate","pho":"ˈɪntɪɡreɪt","pos":"v.","cn":"（使）结合在一起，（使）合并；（使）融入","note":"integrate...into/with... 使……与……结合","seq":6,"y":0.38,"x":0.5089},{"p":39,"ph":20,"w":"legitimate","pho":"lɪˈdʒɪtɪmət","pos":"a.","cn":"合法的，法律许可的；正当的，合情合理的","note":"legitim(=make legal)+-ate","seq":7,"y":0.5126,"x":0.5106},{"p":39,"ph":20,"w":"liability","pho":"ˌlaɪəˈbɪləti","pos":"n.","cn":"责任，义务；（pl.）债务；惹麻烦的人（或物）","note":"","seq":8,"y":0.7563,"x":0.5117},{"p":40,"ph":21,"w":"circuit","pho":"ˈsɜːkɪt","pos":"n.","cn":"环行，环形道路；巡回审判；电路，线路","note":"be on circuit 在巡回当中","seq":0,"y":0.0889,"x":0.1678},{"p":40,"ph":21,"w":"mode","pho":"məʊd","pos":"n.","cn":"方式，方法；（机器、设备的）运作方式","note":"be the mode 流行，时兴","seq":1,"y":0.5,"x":0.5},{"p":40,"ph":21,"w":"outcome","pho":"ˈaʊtkʌm","pos":"n.","cn":"结果，成果","note":"由 come out 逆序成名词","seq":2,"y":0.3178,"x":0.1217},{"p":40,"ph":21,"w":"principle","pho":"ˈprɪnsəpl","pos":"n.","cn":"原理，原则；定律；道德原则，行为准则","note":"in principle 原则上","seq":3,"y":0.5,"x":0.5},{"p":40,"ph":21,"w":"reject","pho":"rɪˈdʒekt / ˈriːdʒekt","pos":"vt./n.","cn":"拒绝，抵制，驳回；废弃；次品；不合格者","note":"动词重音在后，名词在前","seq":4,"y":0.5215,"x":0.1122},{"p":40,"ph":21,"w":"resource","pho":"rɪˈsɔːs","pos":"n./vt.","cn":"资源；财力；才智，智谋；向……提供资源","note":"辨 source 指源泉，resource 指所拥有的资源","seq":5,"y":0.757,"x":0.0994},{"p":41,"ph":21,"w":"segment","pho":"ˈseɡmənt / seɡˈment","pos":"n./vt.","cn":"部分，片，段；瓣；弓形；分割","note":"名词重音在前，动词在后","seq":6,"y":0.1844,"x":0.5133},{"p":41,"ph":21,"w":"epidemic","pho":"ˌepɪˈdemɪk","pos":"a./n.","cn":"流行性的，传染的；流行病；（风尚等的）流行","note":"epi-(=among)+dem(=people)","seq":7,"y":0.3681,"x":0.5144},{"p":41,"ph":21,"w":"senior","pho":"ˈsiːnɪə","pos":"a./n.","cn":"年长的；级别（或地位）高的；最高年级学生","note":"be senior to 比……年长","seq":8,"y":0.4948,"x":0.5167},{"p":41,"ph":21,"w":"supreme","pho":"sjuːˈpriːm","pos":"a.","cn":"（权力等）最高的，至高无上的；极度的，最大的","note":"","seq":9,"y":0.7037,"x":0.5167},{"p":41,"ph":21,"w":"undergo","pho":"ˌʌndəˈɡəʊ","pos":"vt.","cn":"经历，遭受，承受","note":"under(在下)+go(走)","seq":10,"y":0.8444,"x":0.5178},{"p":42,"ph":22,"w":"recommend","pho":"ˌrekəˈmend","pos":"vt.","cn":"推荐，介绍；劝告，建议","note":"recommend doing sth. 建议做某事","seq":0,"y":0.0919,"x":0.1822},{"p":42,"ph":22,"w":"version","pho":"ˈvɜːʃn","pos":"n.","cn":"变体；（电影、剧本等的）版本；说法","note":"vers(=turn)+-ion","seq":1,"y":0.5,"x":0.5},{"p":42,"ph":22,"w":"imply","pho":"ɪmˈplaɪ","pos":"vt.","cn":"暗示，意指；意味着","note":"im-(向内)+ply(折叠)；反义 explicate 详细解释","seq":2,"y":0.3067,"x":0.1333},{"p":42,"ph":22,"w":"proceed","pho":"prəˈsiːd","pos":"vi.","cn":"进行，继续下去；前进","note":"proceed against 起诉……","seq":3,"y":0.5111,"x":0.1211},{"p":42,"ph":22,"w":"conclusion","pho":"kənˈkluːʒn","pos":"n.","cn":"推论，结论；缔结，签订；结尾","note":"in conclusion 最后，总之","seq":4,"y":0.683,"x":0.1117},{"p":42,"ph":22,"w":"previous","pho":"ˈpriːviəs","pos":"a.","cn":"早先的，在前的，以前的","note":"previous to 在……之前","seq":5,"y":0.86,"x":0.1044},{"p":43,"ph":22,"w":"assume","pho":"əˈsjuːm","pos":"vt.","cn":"呈现；承担；假定，认为；假装","note":"assuming that... 假定……","seq":6,"y":0.1896,"x":0.5161},{"p":43,"ph":22,"w":"distribute","pho":"dɪˈstrɪbjuːt","pos":"vt.","cn":"分发，分配；分布，散布；分销，经销","note":"dis-(分开)+tribute(=give)","seq":7,"y":0.4393,"x":0.5189},{"p":43,"ph":22,"w":"attend","pho":"əˈtend","pos":"v.","cn":"出席，参加；照顾，护理；伴随；（to）处理，料理","note":"attend to 处理，照料","seq":8,"y":0.6674,"x":0.5211},{"p":43,"ph":22,"w":"relieve","pho":"rɪˈliːv","pos":"vt.","cn":"减轻，缓解；换班","note":"relieve 减轻 ↔ grieve 加重","seq":9,"y":0.8059,"x":0.5239},{"p":44,"ph":23,"w":"bargain","pho":"ˈbɑːɡən","pos":"vi./n.","cn":"议价，讨价还价；交易，协议；便宜货","note":"strike a bargain 达成协议","seq":0,"y":0.0889,"x":0.1956},{"p":44,"ph":23,"w":"random","pho":"ˈrændəm","pos":"a.","cn":"随意的，随机的","note":"at random 随便地，任意地","seq":1,"y":0.1681,"x":0.1906},{"p":44,"ph":23,"w":"campaign","pho":"kæmˈpeɪn","pos":"n.","cn":"战役；活动，竞选，运动","note":"the next presidential campaign 下届总统竞选","seq":2,"y":0.5,"x":0.5},{"p":44,"ph":23,"w":"eventually","pho":"ɪˈventʃuəli","pos":"ad.","cn":"终于，最后","note":"","seq":3,"y":0.3607,"x":0.18},{"p":44,"ph":23,"w":"exhibit","pho":"ɪɡˈzɪbɪt","pos":"vt./v./n.","cn":"表现，显示；展出，展览；展览品，陈列品","note":"","seq":4,"y":0.4681,"x":0.1728},{"p":44,"ph":23,"w":"campus","pho":"ˈkæmpəs","pos":"n.","cn":"（大学）校园，校区","note":"用 on campus，不用 in","seq":5,"y":0.6378,"x":0.1639},{"p":44,"ph":23,"w":"cater","pho":"ˈkeɪtə","pos":"v.","cn":"（for）提供饮食，承办酒席；满足，迎合","note":"cater to 满足，迎合","seq":6,"y":0.7852,"x":0.155},{"p":44,"ph":23,"w":"avoid","pho":"əˈvɔɪd","pos":"vt.","cn":"避免，回避","note":"avoid doing sth. 避免做某事","seq":7,"y":0.9067,"x":0.1494},{"p":45,"ph":23,"w":"commerce","pho":"ˈkɒmɜːs","pos":"n.","cn":"商业，贸易","note":"merc(商) → merchant 商人，merchandise 商品","seq":8,"y":0.2815,"x":0.5511},{"p":45,"ph":23,"w":"primary","pho":"ˈpraɪməri","pos":"a.","cn":"首要的，主要的，基本的；初等教育的；最初的","note":"state primary schools 公立小学","seq":9,"y":0.4467,"x":0.5511},{"p":45,"ph":23,"w":"procedure","pho":"prəˈsiːdʒə","pos":"n.","cn":"程序，手续，步骤","note":"","seq":10,"y":0.5504,"x":0.5517},{"p":45,"ph":23,"w":"skilled","pho":"skɪld","pos":"a.","cn":"（in/at）熟练的，有技能的；需要特殊技能的","note":"be skilled in/at 擅长","seq":11,"y":0.7126,"x":0.5522},{"p":45,"ph":23,"w":"contact","pho":"ˈkɒntækt","pos":"vt./n.","cn":"接触，联系","note":"作动词不加 with；名词常用 with","seq":12,"y":0.8281,"x":0.5528},{"p":46,"ph":24,"w":"contribution","pho":"ˌkɒntrɪˈbjuːʃn","pos":"n.","cn":"贡献；捐赠，捐献（物）","note":"make contributions to 对……做出贡献","seq":0,"y":0.5,"x":0.5},{"p":46,"ph":24,"w":"deserve","pho":"dɪˈzɜːv","pos":"vt.","cn":"应受，值得","note":"deserve doing = deserve to be done","seq":1,"y":0.1741,"x":0.1844},{"p":46,"ph":24,"w":"proceeding","pho":"prəˈsiːdɪŋ","pos":"n.","cn":"（会议等的）正式记录；（一连串）事件；诉讼","note":"常用复数 proceedings","seq":2,"y":0.5,"x":0.5},{"p":46,"ph":24,"w":"reference","pho":"ˈrefrəns","pos":"n./vt.","cn":"参考（书目）；证明书（或人）；参照；提及；查阅","note":"with reference to 关于，就……而论","seq":3,"y":0.5096,"x":0.1644},{"p":46,"ph":24,"w":"disorder","pho":"dɪsˈɔːdə","pos":"n.","cn":"（身心、机能的）失调，疾病；骚乱；杂乱，混乱","note":"mental disorders 精神疾病；in disorder 混乱","seq":4,"y":0.6933,"x":0.1578},{"p":46,"ph":24,"w":"regardless","pho":"rɪˈɡɑːdləs","pos":"ad.","cn":"不管怎样，无论如何","note":"regardless of 不管，不顾","seq":5,"y":0.9044,"x":0.1489},{"p":47,"ph":24,"w":"allowance","pho":"əˈlaʊəns","pos":"n.","cn":"津贴，补贴；零用钱；（收入的）免税额","note":"make allowances for 考虑到","seq":6,"y":0.2481,"x":0.5444},{"p":47,"ph":24,"w":"dispute","pho":"dɪˈspjuːt","pos":"vt./n.","cn":"对……表示异议；争论，争吵，辩论；争执","note":"dis-(=apart)+pute(考虑)，各持己见","seq":7,"y":0.3904,"x":0.5456},{"p":47,"ph":24,"w":"economy","pho":"ɪˈkɒnəmi","pos":"n.","cn":"经济；节约","note":"digital economy 数字经济","seq":8,"y":0.5704,"x":0.5467},{"p":47,"ph":24,"w":"hence","pho":"hens","pos":"ad.","cn":"今后，从此；因此","note":"","seq":9,"y":0.68,"x":0.5467},{"p":49,"ph":25,"w":"estimate","pho":"ˈestɪmeɪt","pos":"v./n.","cn":"估计，估算；估价，报价","note":"派生 estimation n. 估计；评价","seq":0,"y":0.1933,"x":0.5339},{"p":49,"ph":25,"w":"giant","pho":"ˈdʒaɪənt","pos":"a./n.","cn":"巨大的，特大的；巨人；卓越人物；巨头","note":"","seq":1,"y":0.4037,"x":0.5339},{"p":49,"ph":25,"w":"grind","pho":"ɡraɪnd","pos":"vt.","cn":"磨(碎)，碾(碎)","note":"记 ground n. 土地；ground 亦为 grind 的过去式/过去分词","seq":2,"y":0.6415,"x":0.5739},{"p":49,"ph":25,"w":"highlight","pho":"ˈhaɪlaɪt","pos":"vt./n.","cn":"使显著，使突出；最精彩的部分，最重要的事件","note":"记 high(高)+light(光)，原义强光","seq":3,"y":0.7185,"x":0.5344},{"p":49,"ph":25,"w":"grip","pho":"ɡrɪp","pos":"n./vt.","cn":"紧握，紧抓；掌握，控制；握紧，抓牢","note":"常作 sing.；②吸引……的注意 ③对……有强烈影响","seq":4,"y":0.9178,"x":0.5333},{"p":50,"ph":26,"w":"ideal","pho":"aɪˈdɪəl","pos":"n./a.","cn":"理想；典范；理想的，最好的；不切实际的","note":"考 ideal conditions 理想条件","seq":0,"y":0.1067,"x":0.1528},{"p":50,"ph":26,"w":"ingredient","pho":"ɪnˈɡriːdiənt","pos":"n.","cn":"食材，成分；因素","note":"记 in-(=in)+gred(i)(=step)+-ent(n.)","seq":1,"y":0.5,"x":0.5},{"p":50,"ph":26,"w":"inspire","pho":"ɪnˈspaɪə","pos":"vt.","cn":"鼓舞，激起；使产生灵感","note":"记 in-(=in)+spire(=spirit) 注入精神力量","seq":2,"y":0.3867,"x":0.1389},{"p":50,"ph":26,"w":"negotiate","pho":"nɪˈɡəʊʃieɪt","pos":"v.","cn":"谈判，协商","note":"派生 negotiable a. 可谈判的；negotiation n. 谈判","seq":3,"y":0.7281,"x":0.1239},{"p":50,"ph":26,"w":"option","pho":"ˈɒpʃn","pos":"n.","cn":"选择，可选择的东西；买卖选择权；选项","note":"考 at one's option 随意；first option 优先购买权","seq":4,"y":0.5,"x":0.5},{"p":51,"ph":26,"w":"decrease","pho":"dɪˈkriːs","pos":"v./n.","cn":"减少，变小","note":"作名词读 ˈdiːkriːs；反义 increase","seq":5,"y":0.2437,"x":0.5156},{"p":51,"ph":26,"w":"peculiar","pho":"pɪˈkjuːliə","pos":"a.","cn":"特殊的，特有的；古怪的，异常的","note":"考 be peculiar to... 是……所特有的","seq":6,"y":0.4022,"x":0.5189},{"p":51,"ph":26,"w":"detect","pho":"dɪˈtekt","pos":"vt.","cn":"发觉，察觉","note":"派生 detection n. 察觉；detective n. 侦探；detector n. 探测器","seq":7,"y":0.5881,"x":0.5292},{"p":51,"ph":26,"w":"strain","pho":"streɪn","pos":"n./v.","cn":"紧张，焦虑；张力，推力；拉伤；品种；拉紧；过滤","note":"派生 strained a. 紧张的，不自然的","seq":8,"y":0.7815,"x":0.8178},{"p":52,"ph":27,"w":"threaten","pho":"ˈθretn","pos":"vt./v.","cn":"威胁，恐吓；威胁到，危及；可能发生","note":"考 threaten sb. with sth. 以某物威胁某人","seq":0,"y":0.2363,"x":0.1872},{"p":52,"ph":27,"w":"discipline","pho":"ˈdɪsəplɪn","pos":"vt./n.","cn":"训导，管教；约束；训练；纪律，规定；专业，科目","note":"考 mental discipline 精神自律","seq":1,"y":0.36,"x":0.232},{"p":52,"ph":27,"w":"permission","pho":"pəˈmɪʃn","pos":"n.","cn":"允许，同意","note":"考 obtain permission from sb. 从某人处获得许可","seq":2,"y":0.4148,"x":0.1394},{"p":52,"ph":27,"w":"cognitive","pho":"ˈkɒɡnətɪv","pos":"a.","cn":"认识(力)的，认知的","note":"记 词根 cogn(=know) 知","seq":3,"y":0.6474,"x":0.1306},{"p":52,"ph":27,"w":"radical","pho":"ˈrædɪkl","pos":"a./n.","cn":"激进的，极端的；根本的，彻底的；激进分子","note":"考 a radical reform 一次彻底的改革","seq":4,"y":0.5,"x":0.5},{"p":53,"ph":27,"w":"norm","pho":"nɔːm","pos":"n.","cn":"标准，规范；(pl.)社会准则","note":"考 the norm 常态，惯例","seq":5,"y":0.1437,"x":0.5172},{"p":53,"ph":27,"w":"recruit","pho":"rɪˈkruːt","pos":"v./n.","cn":"招聘，招收；招募(新兵)；新成员；新兵","note":"派生 recruitment n. 招募","seq":6,"y":0.2348,"x":0.52},{"p":53,"ph":27,"w":"code","pho":"kəʊd","pos":"n./vt.","cn":"道德准则，行为规范；密码，代码；编码，标记","note":"考 code of conduct 行为准则","seq":7,"y":0.3763,"x":0.5206},{"p":53,"ph":27,"w":"relevant","pho":"ˈreləvənt","pos":"a.","cn":"有关的，切题的","note":"考 (be) relevant to... 与……有关；派生 relevance n.","seq":8,"y":0.4748,"x":0.5217},{"p":53,"ph":27,"w":"restore","pho":"rɪˈstɔː","pos":"vt.","cn":"使恢复；修复(旧建筑、旧画等)；归还","note":"记 re-(=back 回)+store(贮存)","seq":9,"y":0.6059,"x":0.5244},{"p":53,"ph":27,"w":"eliminate","pho":"ɪˈlɪmɪneɪt","pos":"vt.","cn":"消除，排除","note":"派生 elimination n. 消除，根除","seq":10,"y":0.7111,"x":0.5256},{"p":53,"ph":27,"w":"retail","pho":"ˈriːteɪl","pos":"n./v./ad.","cn":"零售","note":"派生 retailer n. 零售商","seq":11,"y":0.9052,"x":0.5256},{"p":54,"ph":28,"w":"routine","pho":"ruːˈtiːn","pos":"a./n.","cn":"例行的，常规的；例行公事，常规，惯例","note":"考 an exercise routine 一项日常锻炼","seq":0,"y":0.5,"x":0.5},{"p":54,"ph":28,"w":"sample","pho":"ˈsɑːmpl","pos":"n./vt.","cn":"样品，样本；抽样试验；体验，品尝","note":"记 由 example 类推，s 是 ex- 的异体","seq":1,"y":0.5,"x":0.5},{"p":54,"ph":28,"w":"captive","pho":"ˈkæptɪv","pos":"a./n.","cn":"被关押的，遭监禁的；俘虏，囚徒","note":"考 be captive to... 受……禁锢","seq":2,"y":0.2889,"x":0.1611},{"p":54,"ph":28,"w":"score","pho":"skɔː","pos":"n./vt./v.","cn":"刻痕；分数；得分；刻痕于；获胜，得分","note":"","seq":3,"y":0.4363,"x":0.1211},{"p":54,"ph":28,"w":"prolong","pho":"prəˈlɒŋ","pos":"vt.","cn":"延长","note":"记 pro-(向前)+long(长的)","seq":4,"y":0.6022,"x":0.1217},{"p":54,"ph":28,"w":"severe","pho":"sɪˈvɪə","pos":"a.","cn":"严重的；恶劣的；艰难的","note":"派生 severity n. 严重","seq":5,"y":0.5,"x":0.5},{"p":54,"ph":28,"w":"unemployment","pho":"ˌʌnɪmˈplɔɪmənt","pos":"n.","cn":"失业，失业人数","note":"","seq":6,"y":0.5,"x":0.5},{"p":55,"ph":28,"w":"shift","pho":"ʃɪft","pos":"n./v.","cn":"改变，转变；轮班；转换键；移动，转移；换挡","note":"例 科学素养的定义随时间而变","seq":7,"y":0.1496,"x":0.5178},{"p":55,"ph":28,"w":"dismiss","pho":"dɪsˈmɪs","pos":"vt.","cn":"解雇，开除；拒绝考虑，否定；解散","note":"记 dis-(=away)+miss(=send)；派生 dismissal n.","seq":8,"y":0.3193,"x":0.5194},{"p":55,"ph":28,"w":"skeptical","pho":"ˈskeptɪkl","pos":"a.","cn":"怀疑的，多疑的","note":"亦作 sceptical；考 be skeptical about/of 对……怀疑","seq":9,"y":0.4593,"x":0.5217},{"p":55,"ph":28,"w":"premium","pho":"ˈpriːmiəm","pos":"n./a.","cn":"额外费用，加付款；保险金；优质的；高昂的","note":"考 put a (high) premium on 重视","seq":10,"y":0.577,"x":0.5228},{"p":55,"ph":28,"w":"statistics","pho":"stəˈtɪstɪks","pos":"n.","cn":"统计数字，统计资料；统计学","note":"①用作复数 ②用作单数","seq":11,"y":0.7274,"x":0.5256},{"p":55,"ph":28,"w":"upset","pho":"ʌpˈset","pos":"n./vt./a.","cn":"忧虑，烦恼；打乱；打败；使心烦；弄翻","note":"作形容词读 ˈʌpset；记 up(向上)+set(下落)","seq":12,"y":0.86,"x":0.5278},{"p":56,"ph":29,"w":"resistant","pho":"rɪˈzɪstənt","pos":"a.","cn":"(to)抵制的，反抗的；有抵抗力的","note":"","seq":0,"y":0.5,"x":0.5},{"p":56,"ph":29,"w":"scope","pho":"skəʊp","pos":"n.","cn":"(活动)范围；施展余地，机会","note":"考 the regulatory scope 监管范围","seq":1,"y":0.5,"x":0.5},{"p":56,"ph":29,"w":"engage","pho":"ɪnˈɡeɪdʒ","pos":"vi./vt.","cn":"与某人建立关系；(in)参加；聘请，雇用；吸引","note":"考 engage in 参与","seq":2,"y":0.5,"x":0.5},{"p":56,"ph":29,"w":"admission","pho":"ədˈmɪʃn","pos":"n.","cn":"允许进入；承认；录取，录用；入场费","note":"辨 admission 指准许加入；admittance 指进入权","seq":3,"y":0.6785,"x":0.13},{"p":56,"ph":29,"w":"staff","pho":"stɑːf","pos":"n./vt.","cn":"全体员工，全体人员；拐杖，棍棒；配备人员","note":"","seq":4,"y":0.5,"x":0.5},{"p":57,"ph":29,"w":"collapse","pho":"kəˈlæps","pos":"vi./n.","cn":"倒塌；崩溃，瓦解；暴跌","note":"记 col-(=together)+lapse(=slip)","seq":5,"y":0.2437,"x":0.5228},{"p":57,"ph":29,"w":"stem","pho":"stem","pos":"vt./n.","cn":"阻止，遏制；茎，梗；词干；酒杯脚","note":"考 stem from 源于，来自","seq":6,"y":0.3585,"x":0.5222},{"p":57,"ph":29,"w":"guarantee","pho":"ˌɡærənˈtiː","pos":"vt./n.","cn":"保证，担保；质量保证书","note":"用 在保修期间用 under guarantee，不用 in","seq":7,"y":0.5,"x":0.5},{"p":57,"ph":29,"w":"stock","pho":"stɒk","pos":"n./v.","cn":"股票；储备量；库存，现货；汤汁；家畜；储存","note":"考 in stock 有货 ↔ out of stock 脱销；stock up on 贮备","seq":8,"y":0.7889,"x":0.5644},{"p":57,"ph":29,"w":"cautious","pho":"ˈkɔːʃəs","pos":"a.","cn":"小心的，谨慎的","note":"派生 cautiously ad. 小心地","seq":9,"y":0.9015,"x":0.5278},{"p":58,"ph":30,"w":"transform","pho":"trænsˈfɔːm","pos":"vt.","cn":"使改观，使变形","note":"考 transform...into... 将……转变成……","seq":0,"y":0.2763,"x":0.1806},{"p":58,"ph":30,"w":"academy","pho":"əˈkædəmi","pos":"n.","cn":"学院，研究院；专科学院","note":"派生 academic a. 学术的，教学的","seq":1,"y":0.3319,"x":0.1317},{"p":58,"ph":30,"w":"contrast","pho":"ˈkɒntrɑːst","pos":"n./v.","cn":"差别，差异；对照，对比；使成对比","note":"考 in contrast with/to 与……形成对比","seq":2,"y":0.4363,"x":0.1317},{"p":58,"ph":30,"w":"assess","pho":"əˈses","pos":"vt.","cn":"评价，评定；估价，估计","note":"派生 assessment n. 评价；估价","seq":3,"y":0.6237,"x":0.1261},{"p":58,"ph":30,"w":"liberal","pho":"ˈlɪbərəl","pos":"a./n.","cn":"思想开放的；开明的，自由的；慷慨的；开明人士","note":"派生 liberalism n. 自由主义","seq":4,"y":0.9504,"x":0.1579},{"p":59,"ph":30,"w":"addition","pho":"əˈdɪʃn","pos":"n.","cn":"增添，添加；添加物；加，加法","note":"考 in addition 另外；in addition to 除……之外","seq":5,"y":0.1615,"x":0.5222},{"p":59,"ph":30,"w":"acknowledge","pho":"əkˈnɒlɪdʒ","pos":"vt.","cn":"感谢；承认；告知已收到；打招呼，理会","note":"派生 acknowledgement n. 致谢；承认","seq":6,"y":0.3096,"x":0.5228},{"p":59,"ph":30,"w":"survive","pho":"səˈvaɪv","pos":"v.","cn":"活下来，幸存；挺过来；比……活得长","note":"记 sur-(=over 超过)+vive(生存)","seq":7,"y":0.4422,"x":0.5256},{"p":59,"ph":30,"w":"associate","pho":"əˈsəʊʃieɪt","pos":"v./n./a.","cn":"交往；联系，联想；伙伴，同事；副的","note":"考 be associated with... 与……有关","seq":8,"y":0.6296,"x":0.5283},{"p":59,"ph":30,"w":"casual","pho":"ˈkæʒuəl","pos":"a.","cn":"不经意的；偶然的，碰巧的；随便的；临时的","note":"","seq":9,"y":0.8207,"x":0.5322},{"p":60,"ph":31,"w":"project","pho":"ˈprɒdʒekt","pos":"n./vt./vi.","cn":"计划，方案；工程，项目；投射，放映；突出","note":"派生 projection n. 预测；投影","seq":0,"y":0.5,"x":0.5},{"p":60,"ph":31,"w":"reliable","pho":"rɪˈlaɪəbl","pos":"a.","cn":"可靠的，可依赖的","note":"派生 reliability n. 可靠性","seq":1,"y":0.3556,"x":0.175},{"p":60,"ph":31,"w":"characteristic","pho":"ˌkærəktəˈrɪstɪk","pos":"a./n.","cn":"典型的，独特的；特性","note":"","seq":2,"y":0.5504,"x":0.175},{"p":60,"ph":31,"w":"comply","pho":"kəmˈplaɪ","pos":"vi.","cn":"(with)服从，遵守","note":"","seq":3,"y":0.7415,"x":0.1728},{"p":60,"ph":31,"w":"priority","pho":"praɪˈɒrəti","pos":"n.","cn":"优先(权)；优先考虑的事","note":"用 表优越、凌驾时后接介词 over","seq":4,"y":0.5,"x":0.5},{"p":61,"ph":31,"w":"considerable","pho":"kənˈsɪdərəbl","pos":"a.","cn":"相当大的，可观的","note":"派生 considerably ad. 很，非常","seq":5,"y":0.1778,"x":0.5017},{"p":61,"ph":31,"w":"suitable","pho":"ˈsuːtəbl","pos":"a.","cn":"合适的，适宜的，适当的","note":"常与介词 for 连用","seq":6,"y":0.5,"x":0.5},{"p":61,"ph":31,"w":"tough","pho":"tʌf","pos":"a.","cn":"困难的，棘手的；强健的；粗暴的，凶恶的","note":"","seq":7,"y":0.3585,"x":0.51},{"p":61,"ph":31,"w":"controversial","pho":"ˌkɒntrəˈvɜːʃl","pos":"a.","cn":"引起争论的，有争议的","note":"","seq":8,"y":0.4733,"x":0.5122},{"p":61,"ph":31,"w":"debate","pho":"dɪˈbeɪt","pos":"n./v.","cn":"争论，辩论","note":"记 de-(加强)+bat(e)(战)","seq":9,"y":0.5696,"x":0.5061},{"p":61,"ph":31,"w":"alter","pho":"ˈɔːltə","pos":"v./vt.","cn":"改变，变化；修改(服装)","note":"辨 alter 改衣服/态度；convert 改形式用途；shift 指位置方向","seq":10,"y":0.803,"x":0.5561},{"p":62,"ph":32,"w":"significance","pho":"sɪɡˈnɪfɪkəns","pos":"n.","cn":"意义，含义；意义重大，重要性","note":"考 historical significance 历史意义","seq":0,"y":0.5,"x":0.5},{"p":62,"ph":32,"w":"dedicate","pho":"ˈdedɪkeɪt","pos":"vt.","cn":"(to)致力于，献身于；(题词)将著作献给","note":"派生 dedication n. 奉献","seq":1,"y":0.3481,"x":0.1978},{"p":62,"ph":32,"w":"sustain","pho":"səˈsteɪn","pos":"vt.","cn":"承受，支撑；维持，使持续；维持生命","note":"派生 sustainable a. 可持续的","seq":2,"y":0.4074,"x":0.1617},{"p":62,"ph":32,"w":"enable","pho":"ɪˈneɪbl","pos":"vt.","cn":"使能够，使成为可能","note":"考 enable sb./sth. to do sth.","seq":3,"y":0.5859,"x":0.1572},{"p":62,"ph":32,"w":"arouse","pho":"əˈraʊz","pos":"vt.","cn":"唤醒，唤起；引起，激起","note":"派生 arousal n. 唤醒","seq":4,"y":0.7333,"x":0.1494},{"p":62,"ph":32,"w":"constitution","pho":"ˌkɒnstɪˈtjuːʃn","pos":"n.","cn":"宪法，章程；构成，构造；体质，体格","note":"派生 constitutional a. 宪法的","seq":5,"y":0.8889,"x":0.1744},{"p":63,"ph":32,"w":"artificial","pho":"ˌɑːtɪˈfɪʃl","pos":"a.","cn":"人工的；矫揉造作的，虚假的","note":"记 art(i)(人工)+fic(做)+-ial","seq":6,"y":0.0674,"x":0.5528},{"p":63,"ph":32,"w":"evolve","pho":"ɪˈvɒlv","pos":"v.","cn":"逐步发展，逐渐演变；进化，进化形成","note":"派生 evolution n. 演变；进化(论)","seq":7,"y":0.2363,"x":0.5539},{"p":63,"ph":32,"w":"existence","pho":"ɪɡˈzɪstəns","pos":"n.","cn":"存在，实有；生存，生活方式","note":"考 come into existence 出现，产生","seq":8,"y":0.4333,"x":0.5556},{"p":63,"ph":32,"w":"contract","pho":"kənˈtrækt","pos":"v./n.","cn":"缩小，收缩；感染(疾病)；签合同；合同","note":"作名词读 ˈkɒntrækt；记 con-(一起)+tract(拉)","seq":9,"y":0.663,"x":0.5561},{"p":63,"ph":32,"w":"expansion","pho":"ɪkˈspænʃn","pos":"n.","cn":"扩张，扩大","note":"","seq":10,"y":0.9059,"x":0.5578},{"p":64,"ph":33,"w":"fake","pho":"feɪk","pos":"a./n./vt.","cn":"假的，冒充的；假货，赝品；伪造，假装","note":"考 fake news 虚假新闻","seq":0,"y":0.5,"x":0.5},{"p":64,"ph":33,"w":"quote","pho":"kwəʊt","pos":"v./vt./n.","cn":"引用，引述；报价；引文","note":"派生 quotation n. 引用；报价","seq":1,"y":0.2615,"x":0.0944},{"p":64,"ph":33,"w":"garment","pho":"ˈɡɑːmənt","pos":"n.","cn":"（一件）衣服","note":"记 A garment is a piece of clothes","seq":2,"y":0.3667,"x":0.0911},{"p":64,"ph":33,"w":"psychology","pho":"saɪˈkɒlədʒi","pos":"n.","cn":"心理学；（个人、团体的）心理状态","note":"派生 psychologist n. 心理学家","seq":3,"y":0.5667,"x":0.0844},{"p":64,"ph":33,"w":"furthermore","pho":"ˌfɜːðəˈmɔː","pos":"ad.","cn":"而且，此外","note":"","seq":4,"y":0.7296,"x":0.0856},{"p":64,"ph":33,"w":"rap","pho":"ræp","pos":"n./vt./v.","cn":"说唱音乐；敲击（声）；严厉批评","note":"","seq":5,"y":0.5,"x":0.5},{"p":65,"ph":33,"w":"rash","pho":"ræʃ","pos":"a./n.","cn":"轻率的，鲁莽的；皮疹；大量，许多","note":"例 a rash decision 草率的决定","seq":6,"y":0.0844,"x":0.52},{"p":65,"ph":33,"w":"generous","pho":"ˈdʒenərəs","pos":"a.","cn":"大量的，丰富的；慷慨的；宽宏大量的","note":"派生 generosity n. 慷慨","seq":7,"y":0.2207,"x":0.5233},{"p":65,"ph":33,"w":"historical","pho":"hɪˈstɒrɪkəl","pos":"a.","cn":"历史（上）的，史学的","note":"考 the historical record 历史记录","seq":8,"y":0.4178,"x":0.5283},{"p":65,"ph":33,"w":"hospitality","pho":"ˌhɒspɪˈtæləti","pos":"n.","cn":"好客，殷勤；饮食，款待","note":"辨析 hospital 医院 / hospitality 好客","seq":9,"y":0.5089,"x":0.5294},{"p":65,"ph":33,"w":"immune","pho":"ɪˈmjuːn","pos":"a.","cn":"免疫的；免除的；不受影响的","note":"搭配 be immune to 对…免疫","seq":10,"y":0.6815,"x":0.5339},{"p":65,"ph":33,"w":"purify","pho":"ˈpjʊərɪfaɪ","pos":"vt.","cn":"提纯，使纯净","note":"记 pur(e)+-ify(使) 使纯净","seq":11,"y":0.8726,"x":0.5361},{"p":66,"ph":34,"w":"initial","pho":"ɪˈnɪʃl","pos":"a./n.","cn":"最初的，开始的；词首的；首字母","note":"派生 initiate v. 开始；发起","seq":0,"y":0.5,"x":0.5},{"p":66,"ph":34,"w":"legislation","pho":"ˌledʒɪsˈleɪʃən","pos":"n.","cn":"法律，法规；立法","note":"考 win passage of legislation 推动法案通过","seq":1,"y":0.5,"x":0.5},{"p":66,"ph":34,"w":"ambition","pho":"æmˈbɪʃən","pos":"n.","cn":"雄心，抱负，野心；追求，夙愿","note":"","seq":2,"y":0.2407,"x":0.1183},{"p":66,"ph":34,"w":"notion","pho":"ˈnəʊʃən","pos":"n.","cn":"概念，想法，信念","note":"考 notions of beauty 审美观","seq":3,"y":0.5,"x":0.1178},{"p":66,"ph":34,"w":"oblige","pho":"əˈblaɪdʒ","pos":"v.","cn":"强迫，迫使；帮忙，效劳；使感激","note":"搭配 be obliged to do sth. 被迫做某事","seq":4,"y":0.5896,"x":0.115},{"p":66,"ph":34,"w":"dominant","pho":"ˈdɒmɪnənt","pos":"a.","cn":"占优势的，主导的；专横的","note":"记 domin(统治)+-ant","seq":5,"y":0.9141,"x":0.12},{"p":66,"ph":34,"w":"originate","pho":"əˈrɪdʒɪneɪt","pos":"vi./vt.","cn":"起源，发源；创立，发明","note":"搭配 originate from 起源于","seq":6,"y":0.5,"x":0.5},{"p":66,"ph":34,"w":"panel","pho":"ˈpænl","pos":"n.","cn":"专家小组；镶板，嵌板；仪表盘","note":"一词多义：小组/镶板/仪表盘","seq":7,"y":0.5,"x":0.5},{"p":67,"ph":34,"w":"curb","pho":"kɜːb","pos":"vt./n.","cn":"控制，约束；路缘","note":"考 curb the spread of disease 遏制疾病传播","seq":8,"y":0.5052,"x":0.5078},{"p":67,"ph":34,"w":"percentage","pho":"pəˈsentɪdʒ","pos":"n.","cn":"百分比，百分率","note":"搭配 a growing percentage of 越来越大的比例","seq":9,"y":0.68,"x":0.5133},{"p":67,"ph":34,"w":"complain","pho":"kəmˈpleɪn","pos":"v.","cn":"抱怨，不满","note":"搭配 complain to sb. of/about sth.","seq":10,"y":0.7926,"x":0.5167},{"p":67,"ph":34,"w":"definition","pho":"ˌdefɪˈnɪʃən","pos":"n.","cn":"定义，释义","note":"记 define(下定义)+-ition","seq":11,"y":0.8785,"x":0.5194},{"p":68,"ph":35,"w":"provision","pho":"prəˈvɪʒn","pos":"n.","cn":"条款，规定；准备；给养，口粮","note":"搭配 make provision for 为…做准备","seq":0,"y":0.0667,"x":0.3869},{"p":68,"ph":35,"w":"govern","pho":"ˈɡʌvn","pos":"v./vt.","cn":"统治，管理；支配，控制","note":"派生 government n. 政府","seq":1,"y":0.3007,"x":0.19},{"p":68,"ph":35,"w":"recall","pho":"rɪˈkɔːl","pos":"vt.","cn":"回忆，回想起；撤销，召回","note":"记 re-(回)+call(呼唤)","seq":2,"y":0.4726,"x":0.1839},{"p":68,"ph":35,"w":"permanent","pho":"ˈpɜːmənənt","pos":"a.","cn":"永久的，持久的","note":"派生 permanently ad. 永久地","seq":3,"y":0.6133,"x":0.1767},{"p":68,"ph":35,"w":"default","pho":"dɪˈfɔːlt","pos":"n./vi.","cn":"默认设置；违约，拖欠","note":"搭配 in default of 因缺少…","seq":4,"y":0.5,"x":0.5},{"p":69,"ph":35,"w":"command","pho":"kəˈmɑːnd","pos":"v./vt./n.","cn":"命令，指挥；掌握；俯瞰","note":"派生 commander n. 指挥官","seq":5,"y":0.2281,"x":0.6011},{"p":69,"ph":35,"w":"regulate","pho":"ˈreɡjuleɪt","pos":"vt.","cn":"管理，控制；调节，校准","note":"考 regulate short-term rentals 规范短租","seq":6,"y":0.2763,"x":0.5656},{"p":69,"ph":35,"w":"device","pho":"dɪˈvaɪs","pos":"n.","cn":"装置，设备，仪表；方法，策略","note":"辨析 device n. 装置 / devise v. 设计","seq":7,"y":0.357,"x":0.5683},{"p":69,"ph":35,"w":"powerful","pho":"ˈpaʊəfl","pos":"a.","cn":"强大的；有影响力的；大功率的","note":"","seq":8,"y":0.5741,"x":0.5744},{"p":69,"ph":35,"w":"reluctant","pho":"rɪˈlʌktənt","pos":"a.","cn":"不情愿的，勉强的","note":"派生 reluctantly ad. 勉强地","seq":9,"y":0.72,"x":0.5778},{"p":69,"ph":35,"w":"typical","pho":"ˈtɪpɪkl","pos":"a.","cn":"典型的，有代表性的；一贯的，平常的","note":"","seq":10,"y":0.8363,"x":0.58},{"p":70,"ph":36,"w":"universal","pho":"ˌjuːnɪˈvɜːsl","pos":"a.","cn":"普遍的，广泛适用的；全体的，共同的","note":"","seq":0,"y":0.5,"x":0.5},{"p":70,"ph":36,"w":"yield","pho":"jiːld","pos":"n./vt./vi.","cn":"产量，收获；产生，出产；屈服；变形折断","note":"考 yield to temptation 禁不住诱惑","seq":1,"y":0.117,"x":0.1644},{"p":70,"ph":36,"w":"accompany","pho":"əˈkʌmpəni","pos":"vt.","cn":"陪同，伴随；为…伴奏","note":"用 accompany 后不再加 with","seq":2,"y":0.5,"x":0.5},{"p":70,"ph":36,"w":"layer","pho":"ˈleɪə","pos":"n.","cn":"层，表层","note":"记 lay(铺)+-er","seq":3,"y":0.4933,"x":0.155},{"p":70,"ph":36,"w":"aggravate","pho":"ˈæɡrəveɪt","pos":"vt.","cn":"使加重，使恶化；激怒","note":"记 grav(重)+-ate 使加重","seq":4,"y":0.6489,"x":0.1467},{"p":70,"ph":36,"w":"external","pho":"ɪkˈstɜːnl","pos":"a.","cn":"外部的，外界的；外国的","note":"考 external factors 外界因素","seq":5,"y":0.8037,"x":0.1344},{"p":70,"ph":36,"w":"ambiguous","pho":"æmˈbɪɡjuəs","pos":"a.","cn":"引起歧义的，模棱两可的","note":"派生 ambiguity n. 模糊","seq":6,"y":0.9459,"x":0.161},{"p":71,"ph":36,"w":"embrace","pho":"ɪmˈbreɪs","pos":"vt./v./n.","cn":"欣然接受；包括，涉及；拥抱","note":"记 em-(进入)+brace(括号) 括入→接受","seq":7,"y":0.0941,"x":0.545},{"p":71,"ph":36,"w":"lane","pho":"leɪn","pos":"n.","cn":"车道；（乡间）小路，小巷","note":"","seq":8,"y":0.197,"x":0.5478},{"p":71,"ph":36,"w":"anxiety","pho":"æŋˈzaɪəti","pos":"n.","cn":"焦虑，担心；渴望","note":"形 anxious a. 焦虑的","seq":9,"y":0.2948,"x":0.5478},{"p":71,"ph":36,"w":"dominate","pho":"ˈdɒmɪneɪt","pos":"v./vt.","cn":"支配，统治，控制；耸立于，俯视","note":"派生 domination n. 支配","seq":10,"y":0.4222,"x":0.5483},{"p":71,"ph":36,"w":"elementary","pho":"ˌelɪˈmentəri","pos":"a.","cn":"基本的；初级的","note":"记 element(要素)+-ary","seq":11,"y":0.6393,"x":0.5533},{"p":71,"ph":36,"w":"apart","pho":"əˈpɑːt","pos":"a./ad.","cn":"分离的，分开的；相距的，相隔的","note":"搭配 apart from 除…之外","seq":12,"y":0.8259,"x":0.555},{"p":72,"ph":37,"w":"brand","pho":"brænd","pos":"n./vt.","cn":"商标，品牌，标记；打烙印；铭刻","note":"派生 branded a. 名牌的","seq":0,"y":0.0496,"x":0.1578},{"p":72,"ph":37,"w":"cast","pho":"kɑːst","pos":"n./vt.","cn":"演员阵容；模子，铸件；投掷，投射；铸造","note":"搭配 a strong cast 强大的演员阵容","seq":1,"y":0.3274,"x":0.1406},{"p":72,"ph":37,"w":"component","pho":"kəmˈpəʊnənt","pos":"n./a.","cn":"组成部分，部件，零件；组成的","note":"搭配 the key components 主要组成部分","seq":2,"y":0.5393,"x":0.1289},{"p":72,"ph":37,"w":"specify","pho":"ˈspesɪfaɪ","pos":"vt.","cn":"具体指明，明确说明","note":"","seq":3,"y":0.6941,"x":0.1172},{"p":72,"ph":37,"w":"statute","pho":"ˈstætʃuːt","pos":"n.","cn":"法规，法令；条例","note":"辨析 statute/status/stature 同根 stat(站立)","seq":4,"y":0.82,"x":0.1061},{"p":73,"ph":37,"w":"concentrate","pho":"ˈkɒnsəntreɪt","pos":"vi./vt./n.","cn":"集中，专心；浓缩；浓缩物","note":"搭配 concentrate on 集中于","seq":5,"y":0.2156,"x":0.5233},{"p":73,"ph":37,"w":"volume","pho":"ˈvɒljuːm","pos":"n.","cn":"总量，量；音量；卷，册；容积","note":"辨析 volume 音量 / tone 音调","seq":6,"y":0.383,"x":0.5272},{"p":73,"ph":37,"w":"feedback","pho":"ˈfiːdbæk","pos":"n.","cn":"反应，反馈","note":"记 feed(提供)+back(回)","seq":7,"y":0.6141,"x":0.5317},{"p":73,"ph":37,"w":"profitable","pho":"ˈprɒfɪtəbl","pos":"a.","cn":"有利可图的；有益的","note":"","seq":8,"y":0.8081,"x":0.535},{"p":73,"ph":37,"w":"flexible","pho":"ˈfleksəbl","pos":"a.","cn":"可变的，灵活的；易弯曲的，柔韧的","note":"派生 flexibly ad. 灵活地","seq":9,"y":0.9222,"x":0.5361},{"p":74,"ph":38,"w":"confront","pho":"kənˈfrʌnt","pos":"vt.","cn":"对峙，对抗；面临；使面对，使遇到","note":"派生 confrontation n. 对抗","seq":0,"y":0.1696,"x":0.2183},{"p":74,"ph":38,"w":"literary","pho":"ˈlɪtərəri","pos":"a.","cn":"文学（上）的；精通文学的","note":"","seq":1,"y":0.5,"x":0.5},{"p":74,"ph":38,"w":"counterpart","pho":"ˈkaʊntəpɑːt","pos":"n.","cn":"对应的人（或事物）","note":"记 counter-(相对)+part(部分)","seq":2,"y":0.4207,"x":0.1989},{"p":74,"ph":38,"w":"modify","pho":"ˈmɒdɪfaɪ","pos":"vt.","cn":"修改，更改，改造","note":"派生 modification n. 更改","seq":3,"y":0.4748,"x":0.1556},{"p":74,"ph":38,"w":"multiple","pho":"ˈmʌltɪpl","pos":"a./n.","cn":"多样的，多种的；倍数","note":"记 multi-(多)+ple(倍)","seq":4,"y":0.6511,"x":0.1372},{"p":74,"ph":38,"w":"crack","pho":"kræk","pos":"v./n.","cn":"破裂，砸开；发出爆裂声；裂缝；爆裂声","note":"考 get cracking 抓紧时间","seq":5,"y":0.5,"x":0.5},{"p":75,"ph":38,"w":"adapt","pho":"əˈdæpt","pos":"vt./v.","cn":"改编，改写；（使）适应，适合","note":"辨析 adapt 适应 / adopt 采纳","seq":6,"y":0.2252,"x":0.5289},{"p":75,"ph":38,"w":"deliver","pho":"dɪˈlɪvə","pos":"v.","cn":"递送，交付；发表，表达；接生；拯救","note":"考 deliver on Sundays 周日送货","seq":7,"y":0.5,"x":0.5},{"p":75,"ph":38,"w":"strategy","pho":"ˈstrætədʒi","pos":"n.","cn":"战略，策略","note":"辨析 strategy 战略 / tactics 战术","seq":8,"y":0.6807,"x":0.5344},{"p":75,"ph":38,"w":"territory","pho":"ˈterətri","pos":"n.","cn":"领土，版图；领域；领地","note":"","seq":9,"y":0.8148,"x":0.5367},{"p":76,"ph":39,"w":"token","pho":"ˈtəʊkən","pos":"n./a.","cn":"代币；代金券；礼券；标志，象征；象征性的","note":"in token of 作为…的标志；by the same token 同样地","seq":0,"y":0.5,"x":0.5},{"p":76,"ph":39,"w":"sufficient","pho":"səˈfɪʃnt","pos":"a.","cn":"足够的，充分的","note":"反义 insufficient a. 不足的","seq":1,"y":0.237,"x":0.1294},{"p":76,"ph":39,"w":"deprive","pho":"dɪˈpraɪv","pos":"vt.","cn":"夺去，使丧失","note":"deprive sb. of sth. 剥夺某人某物；deprivation n. 剥夺","seq":2,"y":0.4452,"x":0.1139},{"p":76,"ph":39,"w":"positive","pho":"ˈpɒzətɪv","pos":"a.","cn":"积极的，正面的；确实的；正的，阳性的","note":"be positive about 对…抱肯定态度","seq":3,"y":0.597,"x":0.0967},{"p":76,"ph":39,"w":"evade","pho":"ɪˈveɪd","pos":"vt.","cn":"逃避；回避，躲避","note":"近义 avoid","seq":4,"y":0.8185,"x":0.0706},{"p":77,"ph":39,"w":"diverse","pho":"daɪˈvɜːs","pos":"a.","cn":"多种多样的","note":"be diverse from 与…不同；diversity n. 差异，多样性","seq":5,"y":0.0956,"x":0.5272},{"p":77,"ph":39,"w":"encounter","pho":"ɪnˈkaʊntə","pos":"vt./n.","cn":"遭遇，遇到；偶然碰到；邂逅","note":"encounter difficulties 遇到困难","seq":6,"y":0.283,"x":0.7565},{"p":77,"ph":39,"w":"rival","pho":"ˈraɪvl","pos":"vt./n.","cn":"与…匹敌；竞争者，对手","note":"rival planes in speed 速度上可与飞机匹敌","seq":7,"y":0.5,"x":0.5},{"p":77,"ph":39,"w":"vulnerable","pho":"ˈvʌlnərəbl","pos":"a.","cn":"脆弱的，易受伤的；易受攻击的","note":"be vulnerable to 易受…伤害","seq":8,"y":0.5607,"x":0.5228},{"p":77,"ph":39,"w":"enormous","pho":"ɪˈnɔːməs","pos":"a.","cn":"庞大的，巨大的","note":"enormous impact 巨大的影响","seq":9,"y":0.7622,"x":0.5194},{"p":77,"ph":39,"w":"prior","pho":"ˈpraɪə","pos":"a.","cn":"先前的，较早的","note":"prior to 先于…，在…之前","seq":10,"y":0.8919,"x":0.5183},{"p":78,"ph":40,"w":"trial","pho":"ˈtraɪəl","pos":"n.","cn":"审讯，审判；试验，试用","note":"on trial 受审；在试验中","seq":0,"y":0.5,"x":0.5},{"p":78,"ph":40,"w":"enthusiasm","pho":"ɪnˈθjuːziæzəm","pos":"n.","cn":"热情，热心","note":"enthusiasm for sth. 对…的热情","seq":1,"y":0.2052,"x":0.1994},{"p":78,"ph":40,"w":"representative","pho":"ˌreprɪˈzentətɪv","pos":"a./n.","cn":"有代表性的，典型的；代表，代理人","note":"representative government 代议制政府","seq":2,"y":0.4111,"x":0.2261},{"p":78,"ph":40,"w":"resistance","pho":"rɪˈzɪstəns","pos":"n.","cn":"抵抗，反抗；抵抗力；电阻","note":"arouse strong resistance 引发强烈反对","seq":3,"y":0.4644,"x":0.1889},{"p":78,"ph":40,"w":"ethic","pho":"ˈeθɪk","pos":"n.","cn":"道德标准；道德体系","note":"常用复数 ethics；code of ethics 道德准则","seq":4,"y":0.557,"x":0.1867},{"p":78,"ph":40,"w":"lag","pho":"læg","pos":"vi./n.","cn":"落后（于），滞后（于）；落后，滞后","note":"lag behind 落后","seq":5,"y":0.6474,"x":0.1794},{"p":78,"ph":40,"w":"expense","pho":"ɪkˈspens","pos":"n.","cn":"费用，花费；（pl.）开支，花销","note":"at the expense of 以…为代价","seq":6,"y":0.5,"x":0.5},{"p":79,"ph":40,"w":"consequently","pho":"ˈkɒnsɪkwəntli","pos":"ad.","cn":"所以，因此","note":"","seq":7,"y":0.117,"x":0.5528},{"p":79,"ph":40,"w":"extreme","pho":"ɪkˈstriːm","pos":"a./n.","cn":"极端的，极度的；尽头的，末端的；极端","note":"go to extremes 走极端","seq":8,"y":0.2148,"x":0.5544},{"p":79,"ph":40,"w":"facilitate","pho":"fəˈsɪlɪteɪt","pos":"vt.","cn":"使变得（更）容易，使便利","note":"不以人作主语","seq":9,"y":0.3896,"x":0.5922},{"p":79,"ph":40,"w":"route","pho":"ruːt","pos":"n.","cn":"路线，路途","note":"","seq":10,"y":0.4622,"x":0.5589},{"p":79,"ph":40,"w":"adequate","pho":"ˈædɪkwət","pos":"a.","cn":"充分的，足够的；恰当的，可以胜任的","note":"adequate exercise 充分的锻炼","seq":11,"y":0.5674,"x":0.56},{"p":79,"ph":40,"w":"curiosity","pho":"ˌkjʊəriˈɒsəti","pos":"n.","cn":"好奇心；奇品，珍品","note":"curious a. 好奇的；属类比：generous a. → generosity n.","seq":12,"y":0.677,"x":0.5622},{"p":79,"ph":40,"w":"decay","pho":"dɪˈkeɪ","pos":"n./v.","cn":"腐烂，腐朽；破落，衰败；衰退","note":"tooth decay 蛀牙","seq":13,"y":0.8415,"x":0.5644},{"p":80,"ph":41,"w":"royal","pho":"ˈrɔɪəl","pos":"a.","cn":"王室的，皇家的；隆重的，盛大的","note":"royal chapel 皇家小教堂","seq":0,"y":0.5,"x":0.5},{"p":80,"ph":41,"w":"veto","pho":"ˈviːtəʊ","pos":"vt./n.","cn":"否决","note":"put a veto on sth. 对某事行使否决","seq":1,"y":0.2511,"x":0.2044},{"p":80,"ph":41,"w":"foster","pho":"ˈfɒstə","pos":"vt./a.","cn":"培养，促进；代养，照料；代养的","note":"foster a. 代养的 vs adoptive a. 收养的；adopted a. 被收养的","seq":2,"y":0.5407,"x":0.2194},{"p":80,"ph":41,"w":"trap","pho":"træp","pos":"n./vt.","cn":"困境；陷阱；圈套；使陷入困境","note":"be caught in a trap 坠入陷阱","seq":3,"y":0.6081,"x":0.1756},{"p":80,"ph":41,"w":"premier","pho":"ˈpremiə","pos":"n.","cn":"首相，总理；省长，各省行政长官","note":"prime minister 首相，总理","seq":4,"y":0.5,"x":0.5},{"p":81,"ph":41,"w":"trigger","pho":"ˈtrɪgə","pos":"vt./n.","cn":"引发，引起；诱因；（枪的）扳机","note":"trigger off 引起","seq":5,"y":0.1222,"x":0.555},{"p":81,"ph":41,"w":"foundation","pho":"faʊnˈdeɪʃn","pos":"n.","cn":"基金会；地基；建立，创办；基础","note":"lay the foundation for 为…打下基础","seq":6,"y":0.5,"x":0.5},{"p":81,"ph":41,"w":"gap","pho":"gæp","pos":"n.","cn":"差距，差别；缺口；间隙，空白","note":"generation gap 代沟","seq":7,"y":0.5,"x":0.5},{"p":81,"ph":41,"w":"grasp","pho":"grɑːsp","pos":"vt./n.","cn":"抓紧，抓住；领会，理解","note":"have a clear grasp of 对…有清晰的了解","seq":8,"y":0.48,"x":0.5661},{"p":81,"ph":41,"w":"handle","pho":"ˈhændl","pos":"vt./n.","cn":"处理，应付；柄，把手","note":"","seq":9,"y":0.5607,"x":0.5661},{"p":81,"ph":41,"w":"appoint","pho":"əˈpɔɪnt","pos":"vt.","cn":"任命，委派；确定，约定","note":"appoint sb. to/as 任命某人为…","seq":10,"y":0.6919,"x":0.8739},{"p":81,"ph":41,"w":"behalf","pho":"bɪˈhɑːf","pos":"n.","cn":"方面，利益","note":"on behalf of 代表，为了","seq":11,"y":0.9415,"x":0.5778},{"p":82,"ph":42,"w":"excessive","pho":"ɪkˈsesɪv","pos":"a.","cn":"过度的，过分的","note":"excess n. 过量；an excess fare 补票费","seq":0,"y":0.003,"x":0.1522},{"p":82,"ph":42,"w":"heritage","pho":"ˈherɪtɪdʒ","pos":"n.","cn":"文化遗产，传统","note":"national heritage 民族遗产","seq":1,"y":0.2889,"x":0.1517},{"p":82,"ph":42,"w":"intelligent","pho":"ɪnˈtelɪdʒənt","pos":"a.","cn":"聪明的","note":"intelligence n. 智力；intellectual a. 智力的，有才智的","seq":2,"y":0.4319,"x":0.15},{"p":82,"ph":42,"w":"channel","pho":"ˈtʃænl","pos":"n./vt.","cn":"途径，渠道；海峡；波段，频道；引导，输送","note":"channel...into 把…投入","seq":3,"y":0.677,"x":0.1394},{"p":83,"ph":42,"w":"intensive","pho":"ɪnˈtensɪv","pos":"a.","cn":"加强的，集中的；集约的","note":"intensive reading 精读 ↔ extensive reading 泛读","seq":4,"y":0.1007,"x":0.8211},{"p":83,"ph":42,"w":"remote","pho":"rɪˈməʊt","pos":"a.","cn":"遥远的，偏僻的；久远的；渺茫的","note":"remote control 遥控","seq":5,"y":0.2593,"x":0.5278},{"p":83,"ph":42,"w":"scheme","pho":"skiːm","pos":"n./vi.","cn":"计划，方案；系统，体系；阴谋","note":"","seq":6,"y":0.4837,"x":0.5272},{"p":83,"ph":42,"w":"invest","pho":"ɪnˈvest","pos":"vt./vi.","cn":"投资；投入（时间、精力等）","note":"invest in 投资于；invest time in doing 投入时间做…","seq":7,"y":0.66,"x":0.525},{"p":83,"ph":42,"w":"juvenile","pho":"ˈdʒuːvənaɪl","pos":"a./n.","cn":"少年的，未成年的；幼稚的；少年","note":"juvenile delinquency 青少年犯罪","seq":8,"y":0.9148,"x":0.5206},{"p":84,"ph":43,"w":"label","pho":"ˈleɪbl","pos":"n./vt.","cn":"标签；称号，叫法；贴标签于；把…称为","note":"label...as 把…说成是","seq":0,"y":0.0296,"x":0.1517},{"p":84,"ph":43,"w":"elite","pho":"eɪˈliːt","pos":"a./n.","cn":"出类拔萃的，精锐的；精英","note":"the elite 作复数用","seq":1,"y":0.2222,"x":0.14},{"p":84,"ph":43,"w":"latter","pho":"ˈlætə","pos":"n./a.","cn":"后者；后者的；后面的","note":"the former...the latter 前者…后者","seq":2,"y":0.4748,"x":0.125},{"p":84,"ph":43,"w":"consume","pho":"kənˈsjuːm","pos":"vt.","cn":"消耗，耗尽，消费；吃，喝","note":"consume...on/in doing sth. 花费","seq":3,"y":0.6378,"x":0.1139},{"p":85,"ph":43,"w":"assign","pho":"əˈsaɪn","pos":"vt.","cn":"分配，委派；指定","note":"assign sth. to sb. 把某物分配给某人","seq":4,"y":0.0896,"x":0.5267},{"p":85,"ph":43,"w":"attach","pho":"əˈtætʃ","pos":"vt.","cn":"系上，贴上，附上；使依附；重视","note":"attach importance to 重视；be attached to 依恋，附着","seq":5,"y":0.2867,"x":0.5294},{"p":85,"ph":43,"w":"contest","pho":"kənˈtest/ˈkɒntest","pos":"n./vt.","cn":"比赛，竞赛；争辩，提出异议","note":"beauty contest 选美比赛","seq":6,"y":0.56,"x":0.5317},{"p":85,"ph":43,"w":"controversy","pho":"ˈkɒntrəvɜːsi","pos":"n.","cn":"争论，辩论","note":"stir a controversy 引起争议","seq":7,"y":0.8252,"x":0.5333},{"p":86,"ph":44,"w":"lobby","pho":"ˈlɒbi","pos":"v./n.","cn":"游说(从政者或政府)；门廊,门厅；(会议)休息厅","note":"","seq":0,"y":0.5,"x":0.5},{"p":86,"ph":44,"w":"massive","pho":"ˈmæsɪv","pos":"a.","cn":"巨大的,强大的；大而重的,厚实的","note":"","seq":1,"y":0.5,"x":0.5},{"p":86,"ph":44,"w":"melt","pho":"melt","pos":"v./vi.","cn":"(使)融化,(使)熔化；逐渐消失","note":"例 the butter melted in the saucepan 黄油在平底锅中化开","seq":2,"y":0.3659,"x":0.1844},{"p":86,"ph":44,"w":"mislead","pho":"ˌmɪsˈliːd","pos":"vt.","cn":"使……误入歧途,误导","note":"记 mis-(=wrongly 误)+lead(引导)；派生 misleading a. 误导人的","seq":3,"y":0.4526,"x":0.1794},{"p":86,"ph":44,"w":"necessity","pho":"nɪˈsesəti","pos":"n.","cn":"必要,需要；必需品；必然性","note":"辨析 necessaries/necessities 均译“必需品”，necessities 语气更强","seq":4,"y":0.5948,"x":0.1694},{"p":86,"ph":44,"w":"designate","pho":"ˈdezɪɡneɪt","pos":"vt.","cn":"(为特定工作或目的)任命,指派；(用符号、名称等)标明,表示","note":"记 de-(加强意义)+sign(记号,标记)+-ate(v.)","seq":5,"y":0.5,"x":0.5},{"p":87,"ph":44,"w":"chamber","pho":"ˈtʃeɪmbə","pos":"n.","cn":"作特殊用途的房间；(人体或机器内的)腔,室；会议厅","note":"例 chamber tomb 墓室","seq":6,"y":0.1681,"x":0.5361},{"p":87,"ph":44,"w":"compensate","pho":"ˈkɒmpenseɪt","pos":"v.","cn":"(for)补偿,赔偿,弥补","note":"派生 compensation n. ①(AmE)薪酬,工资 ②补偿,赔偿；记 com-(=with)+pens(e)(支付)+-ate(v.)","seq":7,"y":0.2963,"x":0.5383},{"p":87,"ph":44,"w":"differ","pho":"ˈdɪfə","pos":"vi.","cn":"与……不同；意见相左","note":"搭配 differ from 不同于(=be different from)","seq":8,"y":0.5222,"x":0.58},{"p":87,"ph":44,"w":"nevertheless","pho":"ˌnevəðəˈles","pos":"ad.","cn":"然而,不过","note":"","seq":9,"y":0.5,"x":0.5},{"p":87,"ph":44,"w":"observation","pho":"ˌɒbzəˈveɪʃn","pos":"n.","cn":"观察,观测,监视；(对所注意事物的)评述,评论","note":"搭配 keep...under (close) observation 对……(密切)监视","seq":10,"y":0.7363,"x":0.5483},{"p":87,"ph":44,"w":"rarely","pho":"ˈreəli","pos":"ad.","cn":"很少,难得","note":"","seq":11,"y":0.8615,"x":0.5522},{"p":88,"ph":45,"w":"spark","pho":"spɑːk","pos":"vt./vi./n.","cn":"激发,引起；冒火花,发电花；火花,电花","note":"例 spark curiosity 激发好奇心","seq":0,"y":0.5,"x":0.5},{"p":88,"ph":45,"w":"output","pho":"ˈaʊtpʊt","pos":"n.","cn":"产量；输出功率；(计算机的)输出","note":"记 短语 put out 生产 → 生词 output","seq":1,"y":0.5,"x":0.5},{"p":88,"ph":45,"w":"pace","pho":"peɪs","pos":"n./vi./vt.","cn":"速度,步速；节奏,步伐；踱步；调整(节奏)","note":"搭配 keep pace (with...) 与……并驾齐驱","seq":2,"y":0.2519,"x":0.1767},{"p":88,"ph":45,"w":"character","pho":"ˈkærɪktə","pos":"n.","cn":"特性,特征；性格,品质；(剧中)人物,角色；(汉)字","note":"例 Chinese characters 汉字","seq":3,"y":0.5,"x":0.5},{"p":88,"ph":45,"w":"peak","pho":"piːk","pos":"n./a./vi.","cn":"(时间)高峰,顶点；山峰,山顶；最高的；达到最高水平","note":"辨析 peaks(山顶)可有多个，summit(极顶)只有一个","seq":4,"y":0.56,"x":0.1578},{"p":88,"ph":45,"w":"rear","pho":"rɪə","pos":"vt./n./a.","cn":"培养,抚养；后部,后面；后面的","note":"n. 常用 the rear；例 child rearing 育儿","seq":5,"y":0.5,"x":0.5},{"p":88,"ph":45,"w":"platform","pho":"ˈplætfɔːm","pos":"n.","cn":"平台,站台,月台；讲台,舞台；政纲,纲领","note":"记 根 plat(e) 平 → platform 平台","seq":6,"y":0.5,"x":0.5},{"p":89,"ph":45,"w":"exception","pho":"ɪkˈsepʃn","pos":"n.","cn":"除外,例外","note":"搭配 with the exception of... 除……之外","seq":7,"y":0.2496,"x":0.5467},{"p":89,"ph":45,"w":"possess","pho":"pəˈzes","pos":"vt.","cn":"占有,拥有","note":"派生 possession n. ①拥有,占有 ②财富；possessor n. 持有者","seq":8,"y":0.4526,"x":0.5461},{"p":89,"ph":45,"w":"alliance","pho":"əˈlaɪəns","pos":"n.","cn":"(国家、政党等的)结盟,联盟；(人与人之间的)紧密关系,联姻","note":"搭配 be in alliance with... 与……联盟","seq":9,"y":0.6481,"x":0.5472},{"p":89,"ph":45,"w":"extensive","pho":"ɪkˈstensɪv","pos":"a.","cn":"广泛的,广大的","note":"搭配 an extensive report 一份详尽的报告","seq":10,"y":0.9193,"x":0.5472},{"p":90,"ph":46,"w":"preference","pho":"ˈprefərəns","pos":"n.","cn":"喜爱,偏爱；偏爱的事物","note":"搭配 preference for；in preference to 而不是","seq":0,"y":0.5,"x":0.5},{"p":90,"ph":46,"w":"progressive","pho":"prəˈgresɪv","pos":"a./n.","cn":"(政治、教育上)进步的,先进的；逐步发生的,逐步发展的；进步人士","note":"例 progressive public policy 进步性公共政策","seq":1,"y":0.5,"x":0.5},{"p":90,"ph":46,"w":"clash","pho":"klæʃ","pos":"n./v.","cn":"冲突；争论,交锋；(金属等的)碰撞声；发生冲突；不相容,抵触","note":"搭配 clash with 与……冲突","seq":2,"y":0.5,"x":0.5},{"p":90,"ph":46,"w":"comparison","pho":"kəmˈpærəsn","pos":"n.","cn":"(with/to)比较,对比；比喻","note":"搭配 by comparison 比较起来","seq":3,"y":0.6111,"x":0.1194},{"p":90,"ph":46,"w":"prompt","pho":"prɒmpt","pos":"n./vt./a.","cn":"提示；促进,推动；激起；敏捷的,迅速的,即刻的","note":"派生 prompting n. 刺激,激励","seq":4,"y":0.7119,"x":0.1106},{"p":91,"ph":46,"w":"consultant","pho":"kənˈsʌltənt","pos":"n.","cn":"顾问；会诊医师,专科医生","note":"派生 consultancy n. 咨询公司","seq":5,"y":0.26,"x":0.5122},{"p":91,"ph":46,"w":"adopt","pho":"əˈdɒpt","pos":"vt.","cn":"采用,采取；收养","note":"派生 adopted a. 领养的,收养的；adoption n. 领养,收养","seq":6,"y":0.3926,"x":0.5128},{"p":91,"ph":46,"w":"constituent","pho":"kənˈstɪtjuənt","pos":"a./n.","cn":"组成的,构成的；成分,要素","note":"","seq":7,"y":0.4756,"x":0.5133},{"p":91,"ph":46,"w":"pose","pho":"pəʊz","pos":"vt./vi./n.","cn":"造成(困难等)；提出(问题),陈述(观点)；摆姿势；假装,冒充；姿势","note":"搭配 pose as 冒充；pose a threat 构成威胁","seq":8,"y":0.5933,"x":0.515},{"p":91,"ph":46,"w":"constrain","pho":"kənˈstreɪn","pos":"vt.","cn":"阻止,妨碍；限制,限定","note":"记 con-(=together)+strain(拉紧)；派生 constraint n. 限制","seq":9,"y":0.8044,"x":0.5144},{"p":92,"ph":47,"w":"register","pho":"ˈredʒɪstə","pos":"v./n.","cn":"登记,注册；把(邮件)挂号；(仪表等)指示,自动记下；流露,表达；登记簿","note":"搭配 register with 向……登记","seq":0,"y":0.5,"x":0.5},{"p":92,"ph":47,"w":"release","pho":"rɪˈliːs","pos":"vt./n.","cn":"释放,解放；公开发表,发布；放开,松开；发布,发行","note":"搭配 general release 全面发布","seq":1,"y":0.2822,"x":0.2187},{"p":92,"ph":47,"w":"suspect","pho":"ˈsʌspekt","pos":"n./v.","cn":"嫌疑犯,可疑分子；怀疑","note":"搭配 suspect sb. of (doing) sth.；辨析 doubt 怀疑……不是 / suspect 怀疑……是","seq":2,"y":0.3422,"x":0.1061},{"p":92,"ph":47,"w":"tolerance","pho":"ˈtɒlərəns","pos":"n.","cn":"容忍,宽容；(痛苦、困难等的)程度,忍耐力","note":"","seq":3,"y":0.6785,"x":0.0789},{"p":92,"ph":47,"w":"settlement","pho":"ˈsetlmənt","pos":"n.","cn":"居住区,住宅区；(解决纷争的)协议；解决,处理","note":"","seq":4,"y":0.5,"x":0.5},{"p":93,"ph":47,"w":"participate","pho":"pɑːˈtɪsɪpeɪt","pos":"vi.","cn":"(in)参与,参加","note":"记 part(i)+cip(=take)+-ate；take part (in) 参加,参与","seq":5,"y":0.2385,"x":0.5083},{"p":93,"ph":47,"w":"shrink","pho":"ʃrɪŋk","pos":"vi.","cn":"起皱,收缩；退缩,畏缩","note":"搭配 shrink from (doing) sth. 畏缩不敢做某事；派生 shrinkage n. 收缩","seq":6,"y":0.4156,"x":0.5122},{"p":93,"ph":47,"w":"rare","pho":"reə","pos":"a.","cn":"稀有的,难得的；(肉)煮得很嫩的,半熟的","note":"搭配 rare bird 不同寻常的人；辨析 rare 长期缺少而珍贵 / scarce 暂时缺乏","seq":7,"y":0.5793,"x":0.5128},{"p":93,"ph":47,"w":"stern","pho":"stɜːn","pos":"a./n.","cn":"严厉的,苛刻的；严肃的,不苟言笑的；船尾","note":"例 a stern challenge 严峻的挑战","seq":8,"y":0.5,"x":0.5},{"p":93,"ph":47,"w":"alternative","pho":"ɔːlˈtɜːnətɪv","pos":"a./n.","cn":"两者挑一的；(to)可供选择的事物","note":"搭配 alternative to ……的替代品","seq":9,"y":0.8807,"x":0.5133},{"p":94,"ph":48,"w":"exploit","pho":"ɪkˈsplɔɪt","pos":"vt./n.","cn":"利用；开发,开采(资源、矿产等)；剥削；英勇的行为","note":"派生 exploitation n. ①利用 ②开发,开采 ③剥削；记 ex-(=out)+ploit(折)→“榨出来”，对比 employ(折进去)","seq":0,"y":0.5,"x":0.5},{"p":94,"ph":48,"w":"substantial","pho":"səbˈstænʃl","pos":"a.","cn":"大量的,多的；结实的,坚固的","note":"搭配 a substantial salary 丰厚的薪水；派生 substantially ad. 大量地,可观地","seq":1,"y":0.5526,"x":0.2772},{"p":94,"ph":48,"w":"construct","pho":"kənˈstrʌkt","pos":"vt./n.","cn":"建造,建设；创立；构想,概念；建造物","note":"名词读 ˈkɒnstrʌkt；辨析 obstruct v. 阻碍,阻止","seq":2,"y":0.7126,"x":0.275}]};
+</script>
+<script>
+/* 按页词表：点读 + 播一遍 / 循环播放 + 释义自测 + 生词本 */
+(() => {
+  "use strict";
+  const DATA = window.WORDS;
+  const $ = s => document.querySelector(s);
+  const el = (t, cls, txt) => { const n = document.createElement(t); if (cls) n.className = cls; if (txt != null) n.textContent = txt; return n; };
+
+  const K = { theme: "vl.theme", star: "vl.star", pref: "vl.pref" };
+  const load = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } };
+  const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} };
+  const star = new Set(load(K.star, []));
+  const pref = load(K.pref, { rate: .9, gap: 600, cn: false, hideCn: false, onlyStar: false });
+  const key = r => r.p + "|" + r.w;
+
+  /* ---------------- speech ---------------- */
+  let voices = [];
+  const refreshVoices = () => { voices = window.speechSynthesis ? speechSynthesis.getVoices() : []; };
+  refreshVoices();
+  if (window.speechSynthesis) speechSynthesis.onvoiceschanged = refreshVoices;
+
+  const PREFERRED = [/Natural/i, /Google US English/i, /Aria/i, /Jenny/i, /Samantha/i, /Zira/i, /Microsoft.*English/i];
+  function pickVoice(lang) {
+    const list = voices.filter(v => v.lang && v.lang.toLowerCase().startsWith(lang.slice(0, 2)));
+    if (!list.length) return null;
+    for (const re of PREFERRED) { const hit = list.find(v => re.test(v.name)); if (hit) return hit; }
+    return list.find(v => v.lang.toLowerCase() === lang.toLowerCase()) || list[0];
+  }
+
+  function speak(text, lang = "en-US", rate = pref.rate) {
+    return new Promise(resolve => {
+      if (!text) return resolve();
+      if (!window.speechSynthesis) return setTimeout(resolve, 300);
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = lang; u.rate = rate || .9;
+      const v = pickVoice(lang);
+      if (v) u.voice = v;
+      let done = false;
+      const fin = () => { if (done) return; done = true; resolve(); };
+      u.onend = fin; u.onerror = fin;
+      try { speechSynthesis.speak(u); } catch { fin(); }
+      setTimeout(fin, Math.max(2200, (text.length * 260) / Math.max(rate, .4)));
+    });
+  }
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+  /* ---------------- build ---------------- */
+  const S = { items: [], idx: -1, playing: false, mode: "once", token: 0, q: "" };
+
+  const weekOf = p => (p <= 47 ? 1 : p <= 94 ? 2 : 3);
+  const photoOf = p => Math.floor((p + 2) / 2);
+
+  // 倒序只反转「页」的顺序，页内词条仍按书上的先后
+  const pageOrder = [...new Set(DATA.rows.map(r => r.p))];
+  const byPage = new Map(pageOrder.map(p => [p, DATA.rows.filter(r => r.p === p)]));
+  const descRows = pageOrder.slice().reverse().flatMap(p => byPage.get(p));
+
+  function visibleRows() {
+    const q = S.q.trim().toLowerCase();
+    const base = pref.desc ? descRows : DATA.rows;
+    return base.filter(r => {
+      if (pref.onlyStar && !star.has(key(r))) return false;
+      if (!q) return true;
+      return r.w.toLowerCase().includes(q) || (r.cn || "").includes(S.q.trim());
+    });
+  }
+
+  function render() {
+    const list = $("#list");
+    list.textContent = "";
+    const rows = visibleRows();
+    S.items = [];
+
+    let block = null, curPage = -1, count = 0;
+    const flush = () => { if (block) block.querySelector(".pgcount").textContent = count + " 词"; };
+
+    rows.forEach((r, i) => {
+      if (r.p !== curPage) {
+        flush();
+        curPage = r.p; count = 0;
+        block = el("section", "pgblock");
+        block.id = "p" + r.p;
+        const head = el("div", "pghead");
+        const no = el("span", "pgno", `第 ${r.p} 页`);
+        no.appendChild(el("small", "", `Week ${weekOf(r.p)}`));
+        head.append(no, el("span", "pgsub", `第 ${r.ph} 张照片`), el("span", "pgcount", ""));
+        block.appendChild(head);
+        const wrap = el("div", "rows");
+        block.appendChild(wrap);
+        block._rows = wrap;
+        list.appendChild(block);
+      }
+      count++;
+
+      const row = el("div", "row" + (star.has(key(r)) ? " starred" : ""));
+      row.dataset.i = i;
+      row.dataset.p = r.p;
+
+      const cellA = el("div", "cell");
+      const wbtn = el("button", "w", r.w);
+      wbtn.title = "点一下朗读";
+      cellA.appendChild(wbtn);
+      if (r.pho) cellA.appendChild(el("span", "ph", `[${r.pho}]`));
+
+      const cellB = el("div", "cell");
+      const l2 = el("div", "line2");
+      if (r.pos) l2.appendChild(el("span", "pos", r.pos));
+      l2.appendChild(el("span", "cn", r.cn || ""));
+      cellB.appendChild(l2);
+      if (r.note) cellB.appendChild(el("div", "note", r.note));
+
+      const st = el("button", "star" + (star.has(key(r)) ? " on" : ""), "★");
+      st.title = "加入 / 移出生词本";
+
+      const cellC = el("div", "cell right");
+      cellC.appendChild(el("span", "pgtag", "P" + r.p));
+      cellC.appendChild(st);
+
+      row.append(cellA, cellB, cellC);
+      block._rows.appendChild(row);
+
+      wbtn.addEventListener("click", () => { S.idx = i; speakOne(r, row); });
+      st.addEventListener("click", () => {
+        if (star.has(key(r))) star.delete(key(r)); else star.add(key(r));
+        st.classList.toggle("on", star.has(key(r)));
+        row.classList.toggle("starred", star.has(key(r)));
+        save(K.star, [...star]);
+        $("#starCount") && ($("#starCount").textContent = star.size);
+        if (pref.onlyStar) render();
+      });
+      row.addEventListener("click", ev => {
+        if (ev.target.closest(".w") || ev.target.closest(".star")) return;
+        if (pref.hideCn) row.classList.toggle("revealed");
+      });
+
+      S.items.push({ r, row, wbtn });
+    });
+    flush();
+
+    if (!rows.length) {
+      list.appendChild(el("div", "empty", "没有匹配的词，换个拼写或中文试试。"));
+    }
+    $("#footNote").textContent = S.q
+      ? `筛选出 ${rows.length} 个词 · Esc 清空搜索`
+      : `共 ${DATA.rows.length} 个词 / ${new Set(DATA.rows.map(r => r.p)).size} 页 · 点单词朗读，空格播放，M 遮词`;
+  }
+
+  function speakOne(r, row) {
+    highlight(row);
+    $("#np").innerHTML = `正在读 <b>${r.w}</b>`;
+    return speak(r.w);
+  }
+
+  function highlight(row) {
+    document.querySelectorAll(".row.speaking").forEach(n => n.classList.remove("speaking"));
+    if (row) { row.classList.add("speaking"); S.idx = +row.dataset.i; }
+  }
+
+  /* ---------------- playback ---------------- */
+  async function play(mode) {
+    stop();
+    S.mode = mode; S.playing = true;
+    const my = ++S.token;
+    $("#onceBtn").classList.toggle("on", mode === "once");
+    $("#loopBtn").classList.toggle("on", mode === "loop");
+    const rate = pref.rate;
+
+    while (S.token === my) {
+      const start = S.idx < 0 ? 0 : S.idx;
+      for (let i = start; i < S.items.length; i++) {
+        if (S.token !== my) return;
+        const it = S.items[i];
+        if (!it.row.isConnected) continue;
+        S.idx = i;
+        highlight(it.row);
+        it.row.scrollIntoView({ block: "center", behavior: "smooth" });
+        $("#np").innerHTML = `正在读 <b>${it.r.w}</b> · ${i + 1}/${S.items.length}`;
+        await speak(it.r.w, "en-US", rate);
+        if (S.token !== my) return;
+        if (pref.cn && it.r.cn) { await speak(it.r.cn, "zh-CN", rate); if (S.token !== my) return; }
+        await sleep(pref.gap);
+        if (S.token !== my) return;
+      }
+      if (mode !== "loop") break;
+      S.idx = 0;
+      await sleep(600);
+    }
+    stop();
+  }
+
+  function stop() {
+    S.token++;
+    S.playing = false;
+    if (window.speechSynthesis) speechSynthesis.cancel();
+    $("#onceBtn").classList.remove("on");
+    $("#loopBtn").classList.remove("on");
+    document.querySelectorAll(".row.speaking").forEach(n => n.classList.remove("speaking"));
+    $("#np").textContent = "就绪";
+  }
+
+  /* ---------------- controls ---------------- */
+  const q = $("#q");
+  let qt = 0;
+  q.addEventListener("input", e => { clearTimeout(qt); qt = setTimeout(() => { S.q = e.target.value; render(); }, 120); });
+  q.addEventListener("keydown", e => { if (e.key === "Escape") { q.value = ""; S.q = ""; render(); q.blur(); } });
+
+  $("#hideCn").checked = pref.hideCn;
+  document.body.classList.toggle("hide-cn", pref.hideCn);
+  $("#hideCn").addEventListener("change", e => {
+    pref.hideCn = e.target.checked; save(K.pref, pref);
+    document.body.classList.toggle("hide-cn", pref.hideCn);
+  });
+
+  $("#onlyStar").checked = pref.onlyStar;
+  document.body.classList.toggle("only-star", pref.onlyStar);
+  $("#onlyStar").addEventListener("change", e => {
+    pref.onlyStar = e.target.checked; save(K.pref, pref);
+    document.body.classList.toggle("only-star", pref.onlyStar);
+    render();
+  });
+
+  $("#rate").value = pref.rate; $("#rateVal").textContent = (+pref.rate).toFixed(2);  $("#rate").addEventListener("input", e => {
+    pref.rate = +e.target.value; save(K.pref, pref);
+    $("#rateVal").textContent = (+pref.rate).toFixed(2);
+  });
+  $("#gap").value = pref.gap; $("#gapVal").textContent = (pref.gap / 1000).toFixed(1) + "s";
+  $("#gap").addEventListener("input", e => {
+    pref.gap = +e.target.value; save(K.pref, pref);
+    $("#gapVal").textContent = (pref.gap / 1000).toFixed(1) + "s";
+  });
+  $("#readCn").checked = pref.cn;
+  $("#readCn").addEventListener("change", e => { pref.cn = e.target.checked; save(K.pref, pref); });
+
+  const orderBtn = $("#orderBtn");
+  orderBtn.textContent = pref.desc ? "正序" : "倒序";
+  orderBtn.addEventListener("click", () => {
+    pref.desc = !pref.desc; save(K.pref, pref);
+    orderBtn.textContent = pref.desc ? "正序" : "倒序";
+    render();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  $("#onceBtn").addEventListener("click", () => play("once"));
+  $("#loopBtn").addEventListener("click", () => play("loop"));
+  $("#stopBtn").addEventListener("click", stop);
+
+  $("#themeBtn").addEventListener("click", () => {
+    const dark = document.documentElement.dataset.theme === "dark";
+    document.documentElement.dataset.theme = dark ? "" : "dark";
+    save(K.theme, dark ? "" : "dark");
+  });
+  document.documentElement.dataset.theme = load(K.theme, "");
+
+  $("#printBtn").addEventListener("click", () => window.print());
+
+  $("#csvBtn").addEventListener("click", () => {
+    const cell = s => `"${String(s || "").replace(/"/g, '""')}"`;
+    const lines = ["页码,单词,音标,词性,中文释义,注释"];
+    DATA.rows.forEach(r => lines.push([r.p, cell(r.w), cell(r.pho), cell(r.pos), cell(r.cn), cell(r.note)].join(",")));
+    const blob = new Blob(["\ufeff" + lines.join("\r\n")], { type: "text/csv;charset=utf-8" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "考研词汇_按页.csv";
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 3000);
+    toast(`已导出 ${DATA.rows.length} 个词`);
+  });
+
+  document.addEventListener("keydown", e => {
+    const typing = /^(INPUT|TEXTAREA)$/.test(e.target.tagName);
+    if (e.key === "/" && !typing) { e.preventDefault(); q.focus(); return; }
+    if (typing) return;
+    switch (e.key) {
+      case " ": e.preventDefault(); S.playing ? stop() : play("once"); break;
+      case "o": case "O": play("once"); break;
+      case "l": case "L": play("loop"); break;
+      case "m": case "M": $("#hideCn").click(); break;
+      case "Escape": stop(); break;
+    }
+  });
+
+  /* ---------------- jump strip ---------------- */
+  (function buildJump() {
+    const jump = $("#jump");
+    const pages = [...new Set(DATA.rows.map(r => r.p))];
+    pages.forEach(p => {
+      const a = el("a", weekOf(p) === 2 ? "w2" : weekOf(p) === 3 ? "w3" : "", String(p));
+      a.href = "#p" + p;
+      a.title = `第 ${p} 页 · ${DATA.rows.filter(r => r.p === p).length} 词`;
+      jump.appendChild(a);
+    });
+  })();
+
+  let tt = 0;
+  function toast(msg) {
+    const t = $("#toast");
+    t.textContent = msg; t.classList.add("show");
+    clearTimeout(tt); tt = setTimeout(() => t.classList.remove("show"), 1800);
+  }
+
+  /* ---------------- boot ---------------- */
+  $("#total").textContent = DATA.rows.length;
+  $("#pages").textContent = new Set(DATA.rows.map(r => r.p)).size;
+  $("#starCount") && ($("#starCount").textContent = star.size);
+  render();
+})();
+
+</script>
+</body>
+</html>
